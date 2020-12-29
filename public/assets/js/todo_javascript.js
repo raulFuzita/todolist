@@ -1,33 +1,50 @@
+const xhttp = new XMLHttpRequest();
+const todolist = document.getElementById("todoList");
+const itemInput = document.getElementById("itemInput");
+const close = document.getElementsByClassName("close");
+const nodeList = document.getElementsByClassName("todo-item");
 
-var xhttp = new XMLHttpRequest();
+(function(){
+  renderCloseButton();
+  addDeleteEventListener();
+}());
 
-// Create a "close" button and append it to each list item
-var nodeList = document.getElementsByClassName("todo-item");
-var i;
-for (i = 0; i < nodeList.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  nodeList[i].appendChild(span);
-}
-
-var sendPostRequest = (url, req) => {
+const sendPostRequest = (url, req) => {
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(req);
 }
 
+// Create a "close" button and append it to each list item
+function renderCloseButton(){
+  for (let i = 0; i < nodeList.length; i++) {
+    let span = document.createElement("SPAN");
+    let txt = document.createTextNode("\u00D7");
+    span.className = "close";
+    span.appendChild(txt);
+    nodeList[i].appendChild(createCloseButton());
+  }
+}
+
+// create an html close button with X icon.
+function createCloseButton(){
+  let span = document.createElement("SPAN");
+  let txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  return span;
+}
+
 // Click on a close button to hide the current list item
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
-    const id = div.id;
-    const req = 'id='+id;
-    sendPostRequest("delete", req);
+function addDeleteEventListener(){
+  for (let i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      const div = this.parentElement;
+      div.style.display = "none";
+      const id = div.id;
+      const req = 'id='+id;
+      sendPostRequest("delete", req);
+    }
   }
 }
 
@@ -48,14 +65,14 @@ list.addEventListener('click', function(ev) {
 // Create a new list item when clicking on the "Add" button
 newElement = () => {
 
-  var inputValue = document.getElementById("itemInput").value;
+  let inputValue = itemInput.value;
 
   if (inputValue === '') {
     alert("You must write something!");
     return;
   }
 
-  var li = document.createElement("li");
+  let li = document.createElement("li");
   const datatime = new Date().valueOf();
   const id = document.createAttribute("id");
   id.value = datatime.toString();
@@ -68,21 +85,9 @@ newElement = () => {
   const req = 'id='+id.value+'&task='+task;
   sendPostRequest("create", req);
 
-  const todolist = document.getElementById("todoList").appendChild(li);
-  console.log(todolist);
+  todolist.appendChild(li);
+  itemInput.value = "";
+  li.appendChild(createCloseButton());
 
-  document.getElementById("itemInput").value = "";
-
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
-    }
-  }
+  addDeleteEventListener();
 }
