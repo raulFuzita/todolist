@@ -1,0 +1,23 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": " A TO-DO list app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raulFuzita/todolist.git"
+  },
+  "keywords": [
+    "todo-list",
+    "list"
+  ],
+  "author": "Raul Macedo Fuzita",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raulFuzita/todolist/issues"
+  },
+  "homepage": "https://github.com/raulFuzita/todolist#readme"
+}
