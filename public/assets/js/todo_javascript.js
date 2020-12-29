@@ -1,3 +1,4 @@
+
 const xhttp = new XMLHttpRequest();
 const todolist = document.getElementById("todoList");
 const itemInput = document.getElementById("itemInput");
@@ -7,6 +8,7 @@ const nodeList = document.getElementsByClassName("todo-item");
 (function(){
   renderCloseButton();
   addDeleteEventListener();
+  addCheckedEventListener();
 }());
 
 const sendPostRequest = (url, req) => {
@@ -49,23 +51,24 @@ function addDeleteEventListener(){
 }
 
 // Add a "checked" symbol when clicking on a list item
-var list = document.querySelector('ul.todo-list');
-list.addEventListener('click', function(ev) {
-  if (ev.target.tagName === 'LI') {
-      ev.target.classList.toggle('checked');
-
-      const id = ev.target.id;
-      const isChecked = ev.target.classList.contains('checked');
-      console.log(isChecked);
-      const req = 'id='+id+'&status='+isChecked;
-      sendPostRequest("update", req);
-  }
-}, false);
+function addCheckedEventListener(){
+  const list = document.querySelector('ul.todo-list');
+  list.addEventListener('click', function(ev) {
+    if (ev.target.tagName === 'LI') {
+        ev.target.classList.toggle('checked');
+        const id = ev.target.id;
+        const isChecked = ev.target.classList.contains('checked');
+        console.log(isChecked);
+        const req = 'id='+id+'&status='+isChecked;
+        sendPostRequest("update", req);
+    }
+  }, false);
+}
 
 // Create a new list item when clicking on the "Add" button
 newElement = () => {
 
-  let inputValue = itemInput.value;
+  let inputValue = DOMPurify.sanitize(itemInput.value);
 
   if (inputValue === '') {
     alert("You must write something!");
