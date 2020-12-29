@@ -22,6 +22,18 @@ app.use(session({
     saveUninitialized: true
 }));
 
+app.get('/', (req, res) => {
+    res.redirect('/index');
+});
+
+app.get('/index', (req, res) => {
+    res.render('index', {session: req.session});
+});
+
+app.use((req, res) => {
+    res.status(404).render('404', {session: req.session});
+});
+
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
