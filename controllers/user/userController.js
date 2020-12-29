@@ -13,7 +13,7 @@ const user_login_get = (req, res) => {
 
 const user_login_post = (req, res) => {
     const userForm = req.body;
-    let user = userDAO.getByEmail(userForm.email);
+    let user = userDAO.getByEmail(userForm.email.trim());
 
     if(user){
         if (validateUser(user, userForm)){
@@ -48,11 +48,11 @@ const user_signup_post = (req, res) => {
     if(checkPassword(userForm)){
         let user = new User();
         let passwordHash = crypto.createHmac('sha256', secret)
-                    .update(userForm.password)
+                    .update(userForm.password.trim())
                     .digest('hex');
 
-        user.setName(userForm.name)
-            .setEmail(userForm.email)
+        user.setName(userForm.name.trim())
+            .setEmail(userForm.email.trim())
             .setPassword(passwordHash);
 
         if (userDAO.set(user)){
@@ -73,7 +73,7 @@ const user_signup_post = (req, res) => {
 
 const validateUser = (user1, user2) => {
     let passwordHash = crypto.createHmac('sha256', secret)
-                    .update(user2.password)
+                    .update(user2.password.trim())
                     .digest('hex');
     return user1.password === passwordHash;
 }

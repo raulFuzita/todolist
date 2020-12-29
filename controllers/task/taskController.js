@@ -27,7 +27,7 @@ const task_create_post = (req, res) => {
         const userId = req.session.user.id;
         let userTask = taskDAO.getById(userId);
         const id = req.body.id;
-        const task = req.body.task;
+        const task = req.body.task.trim();
         const newTask = new Task(userId);
 
         if(userTask)
