@@ -2,16 +2,8 @@
     "users": [
         {
             "user": {
-                "id": "1608923622540",
-                "name": "diego",
-                "email": "diego@email.com",
-                "password": "88a1d98506c4d1f08de8c860e221f238eaf8a446d8fa400a6c7cbf0bb0a887b5"
-            }
-        },
-        {
-            "user": {
-                "id": "1609040287460",
-                "name": "John",
+                "id": "1609273083662",
+                "name": "John Doe",
                 "email": "john_doe@email.com",
                 "password": "88a1d98506c4d1f08de8c860e221f238eaf8a446d8fa400a6c7cbf0bb0a887b5"
             }
