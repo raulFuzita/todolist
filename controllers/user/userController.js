@@ -81,7 +81,11 @@ const validateUser = (user1, user2) => {
 const checkPassword = (userForm) => {
     let password = userForm.password;
     let confirmPassword = userForm.confirmPassword;
-    return password !== "" && password === confirmPassword;
+    return validateSize(password) && validateSize(confirmPassword) && password === confirmPassword;
+}
+
+const validateSize = (password) => {
+    return password.length >= 8 && password.length <= 160;
 }
 
 module.exports = {

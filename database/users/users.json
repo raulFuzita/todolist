@@ -7,6 +7,14 @@
                 "email": "john_doe@email.com",
                 "password": "fb915f166fb59cd83d4f1e2f85133df18a7e4889aaf4680a3cb493c8fbd48c56"
             }
+        },
+        {
+            "user": {
+                "id": "1609278148524",
+                "name": "Peter Smith",
+                "email": "peter_smith@email.com",
+                "password": "fb915f166fb59cd83d4f1e2f85133df18a7e4889aaf4680a3cb493c8fbd48c56"
+            }
         }
     ]
 }
