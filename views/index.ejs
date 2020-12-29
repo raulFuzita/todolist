@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>todolist</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="/assets/css/Highlight-Phone.css">
+    <link rel="stylesheet" href="/assets/css/Navigation-with-Button.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs") %>
+    <% gotoTask = (session.user) ? 'todolist' : 'login';%>
+    <% console.log(session.user); %>
+
+    <div class="highlight-phone" style="margin-top: 30px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="intro">
+                        <h2>TO-DO List</h2>
+                        <p>Don't miss anything anymore. Bring with you your to-do list wherever you are whenever you want.<br>If you are tired of forgetting what you had to do. Don't wait click on the button below or sign up right now!</p><a class="btn btn-primary" role="button" href="<%= gotoTask %>">Start now</a>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="d-none d-md-block phone-mockup"><img class="device" src="/assets/img/phone.svg">
+                        <div class="screen"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

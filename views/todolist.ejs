@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>todolist</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="/assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="/assets/css/Navigation-with-Button.css">
+    <link rel="stylesheet" href="/assets/css/todo_style.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs") %>
+
+    <main>
+        <div class="container content">
+            <div class="mx-auto" style="margin-top: 30px;max-width: 900px;min-height: 250px;">
+                <div id="todoDIV" class="todo-header">
+                    <h3 style="margin: 5px;margin-bottom: 15px;">To Do List</h3><input type="text" id="itemInput" class="todo-input"><span class="addBtn" onclick="newElement()">Add</span>
+                </div>
+                <div>
+                    <ul id="todoList" class="todo-list">
+                        <!-- <li class="todo-item">Item 1</li> -->
+                        <% if(session.user && tasks){ %>
+                            <% for(const prop in tasks){ %>
+                                <% 
+                                    const taskId = tasks[prop].id; 
+                                    const task = tasks[prop].task;
+                                    const isChecked = (tasks[prop].status) ? 'checked' : '';
+                                %>
+                                <li id="<%= taskId %>" class="todo-item <%= isChecked%>" >
+                                    <%= task %>
+                                </li>
+                            <% } %>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <%- include("./partials/footer.ejs") %>
+    </main>
+    
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/todo_javascript.js"></script>
+</body>
+
+</html>
