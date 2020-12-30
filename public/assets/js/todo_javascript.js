@@ -27,7 +27,7 @@ const sendPostRequest = (url, req) => {
 }
 
 // Create a "close" button and append it to each list item
-renderCloseButton = () =>{
+function renderCloseButton() {
   for (let i = 0; i < nodeList.length; i++) {
     let span = document.createElement("SPAN");
     let txt = document.createTextNode("\u00D7");
@@ -42,7 +42,7 @@ renderCloseButton = () =>{
  * It returns a span element
  * @returns HTML span element
  */
-createCloseButton = () => {
+function createCloseButton() {
   let span = document.createElement("SPAN");
   let txt = document.createTextNode("\u00D7");
   span.className = "close";
@@ -56,7 +56,7 @@ createCloseButton = () => {
  * This function send a request to the server.
  * Click on a close button to hide the current list item.
  */
-addDeleteEventListener = () => {
+function addDeleteEventListener() {
   for (let i = 0; i < close.length; i++) {
     close[i].onclick = function() {
       const div = this.parentElement;
@@ -73,7 +73,7 @@ addDeleteEventListener = () => {
  * This function send a request to the server.
  * Add a "checked" symbol when clicking on a list item.
  */
-addCheckedEventListener = () => {
+function addCheckedEventListener() {
   const list = document.querySelector('ul.todo-list');
   list.addEventListener('click', function(ev) {
     if (ev.target.tagName === 'LI') {
@@ -89,7 +89,7 @@ addCheckedEventListener = () => {
 /**
  * Create a new list item when clicking on the "Add" button
  */
-newElement = () => {
+function newElement() {
 
   let inputValue = DOMPurify.sanitize(itemInput.value);
 

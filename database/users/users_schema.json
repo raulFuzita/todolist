@@ -24,6 +24,7 @@
                             },
                               "pssword": {
                               "type": "string",
+                              "minLenght": 8,
                               "maxLength": 180
                             }
                         },
