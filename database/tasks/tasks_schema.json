@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "title": "Message Schema v1",
+  "type": "object",
+  "required": [
+    "list"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "list": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "user": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "[a-z0-9]+"
+                },
+                "tasks": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "pattern": "[a-z0-9]+"
+                        },
+                        "status": {
+                          "type": "boolean"
+                        },
+                        "task": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "status",
+                        "task"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "tasks"
+              ]
+            }
+          },
+          "required": [
+            "user"
+          ]
+        }
+      ]
+    }
+  }
+}

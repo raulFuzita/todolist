@@ -1,0 +1,28 @@
+
+<% showLogMenu = (session.user) ? 'd-none' : '';%>
+<% showProfile = (session.user) ? '' : 'd-none';%>
+<% userName = (session.user) ? session.user.name : 'Error';%>
+
+<header class="shadow-sm">
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+        <div class="container"><a class="navbar-brand" href="./index">TODOList<i class="fa fa-book" style="margin-left: 5px;"></i></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="./index">Home</a></li>
+                    <li class="nav-item"></li>
+                </ul>
+                <span class="navbar-text <%= showLogMenu %> actions" id="logMenu"> 
+                    <a class="login" href="./login">Log In</a>
+                    <a class="btn btn-light action-button" role="button" href="./signup">Sign Up</a>
+                </span>
+                <div class="dropdown <%= showProfile %> ml-auto" id="username">
+                    <a class="dropdown-toggle simple-link" data-toggle="dropdown" aria-expanded="false" id="username" href="#"><%= userName %></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" id="todolist" href="todolist">To-do List</a>
+                        <a class="dropdown-item" id="logout" href="logout">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

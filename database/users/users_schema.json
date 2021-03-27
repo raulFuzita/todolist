@@ -1,0 +1,42 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Message Schema v1",
+    "type": "object",
+    "required": ["users"],
+    "additionalProperties": false,
+    "properties": {
+         "users": {
+             "type": "array",
+            "items": [{
+                "type": "object",
+                  "properties": {
+                      "user": {
+                         "type": "object",
+                          "properties": {
+                             "id": {
+                              "type": "string",
+                              "pattern": "[a-z0-9]+"
+                            },
+                              "name": {"type": "string"},
+                              "email": {
+                              "type": "string",
+                              "format": "email"
+                            },
+                              "pssword": {
+                              "type": "string",
+                              "minLenght": 8,
+                              "maxLength": 180
+                            }
+                        },
+                          "required": [
+                            "id", "name", "email", "password"
+                        ]
+                    }
+                },
+                  "required": [
+                    "user"
+                ]
+            }]
+        }
+    }
+}
