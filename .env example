@@ -1,0 +1,6 @@
+HOST_NAME=localhost
+SERVER_PORT=8000
+
+DB_NAME=myDatabase
+DB_USER=myUser
+DB_PASSWORD=myPassword

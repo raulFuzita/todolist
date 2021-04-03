@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const userDAO = require('../../models/dao/user_dao');
+const UserDAO = require('../../models/dao/mongoDB/user_dao');
 const User = require('../../models/user/user');
 const secret = 'todo_user'; // Secret for the incriptation
 
@@ -28,9 +28,15 @@ const user_login_get = (req, res) => {
  * @param {HTTP} req - Request
  * @param {HTTP} res - Response
  */
-const user_login_post = (req, res) => {
+const user_login_post = async (req, res) => {
+    const userDAO = new UserDAO();
     const userForm = req.body; // gets an object from a form
-    let user = userDAO.getByEmail(userForm.email.trim()); // retrives a user with such email.
+    
+    let user = await userDAO.getByEmail(userForm.email.trim()); // retrives a user with such email.
+
+    console.log('==============================================');
+    console.log(user);
+    console.log('==============================================');
     // If a user doesn't exist with such credentials variable user is set to null.
     if(user){
         // Validate user's credentials
@@ -44,14 +50,17 @@ const user_login_post = (req, res) => {
             // Sets session
             req.session.user = userSession;
             req.session.error = 'success';
+            console.log(req.session.error);
             res.redirect('/todolist');
         }else{
             req.session.error = 'user doesn\'t exist';
+            console.log(req.session.error);
             res.render('login', {session: req.session});
         }
             
     } else {
         req.session.error = 'user doesn\'t exist';
+        console.log(req.session.error);
         res.render('login', {session: req.session});
     }
 }
@@ -72,8 +81,9 @@ const user_signup_get = (req, res) => {
  * @param {HTTP} req - Request
  * @param {HTTP} res - Response
  */
-const user_signup_post = (req, res) => {
+const user_signup_post = async (req, res) => {
     const userForm = req.body;
+    const userDAO = new UserDAO();
 
     if(checkPassword(userForm)){
         let user = new User(); // Creates a user object
@@ -87,20 +97,27 @@ const user_signup_post = (req, res) => {
             .setEmail(userForm.email.trim())
             .setPassword(passwordHash);
         // Checks if a user already exists. Otherwise a user is created.
-        if (userDAO.set(user)){
+
+        const tempUser = await userDAO.getByEmail(user.email);
+        let email = tempUser ? tempUser.email : null;
+
+        if (user.email != email){
+            userDAO.set(user);
             req.session.error = 'success';
+            console.log(req.session.error);
             req.session.email = user.email;
             res.redirect('/login');
         } else {
             req.session.error = 'user already exist';
+            console.log(req.session.error);
             res.render('signup', {session: req.session});
         }
             
     } else {
         req.session.error = 'password is not equal';
+        console.log(req.session.error);
         res.render('signup', {session: req.session});
-    }
-        
+    }       
 }
 
 /**

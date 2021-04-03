@@ -2,12 +2,14 @@
 const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
+const dotenv = require('dotenv');
 
 // Imports controllers
 const userController = require('./controllers/user/userController');
 const logoutController = require('./controllers/logout/logoutController');
 const todolistController = require('./controllers/task/taskController');
 
+dotenv.config();
 const app = express();
 
 // Sets a template engine
@@ -59,6 +61,7 @@ app.use((req, res) => {
 });
 
 // Server listener
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
+let server = app.listen(process.env.SERVER_PORT || 3000, process.env.HOST_NAME || '0.0.0.0', () => {
+    console.log("Server is running on port " + server.address().port 
+                        + " and address at " + server.address().address);
 });

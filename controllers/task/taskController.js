@@ -8,12 +8,12 @@ const dao = require('../../models/dao/task_dao');
  * @param {HTTP} req - Request
  * @param {HTTP} res - Response
  */
-const task_index_get = (req, res) => {
+const task_index_get = async (req, res) => {
     if (!req.session.user)
         res.redirect('/');
     
     const userId = req.session.user.id;
-    let user = taskDAO.getById(userId);
+    let user = await taskDAO.getById(userId);
     /* 
         Checks if a user exist by using a ternary operator. 
         Returns a user's tasks. Otherwise null.

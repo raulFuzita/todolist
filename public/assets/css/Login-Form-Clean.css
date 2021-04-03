@@ -66,3 +66,8 @@
   text-decoration: none;
 }
 
+.form-error {
+  color: rgb(233, 39, 39);
+  font-size: 0.7em;
+  padding-left: 5px;
+}
