@@ -34,9 +34,6 @@ const user_login_post = async (req, res) => {
     
     let user = await userDAO.getByEmail(userForm.email.trim()); // retrives a user with such email.
 
-    console.log('==============================================');
-    console.log(user);
-    console.log('==============================================');
     // If a user doesn't exist with such credentials variable user is set to null.
     if(user){
         // Validate user's credentials

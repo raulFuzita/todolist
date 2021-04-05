@@ -90,7 +90,7 @@ class Task {
     getObjectTask(){
         let id = this.userId;
         let tasks = this.tasks;
-        return {id, tasks};
+        return {user: {id, tasks}};
     }
 }
 

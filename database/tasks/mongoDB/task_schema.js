@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const taskSchema = new Schema({
   "user": {
     "id": {
-      "type": "String"
+      "type": "ObjectId"
     },
     "tasks": {
       "type": [
