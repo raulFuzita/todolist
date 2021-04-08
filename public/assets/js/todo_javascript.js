@@ -22,8 +22,22 @@ const nodeList = document.getElementsByClassName("todo-item");
  */
 const sendPostRequest = (url, req) => {
     xhttp.open("POST", url, true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(req);
+    setHeader(req)
+}
+
+const sendPutRequest = (url, req) => {
+  xhttp.open("PUT", url, true);
+  setHeader(req)
+}
+
+const sendDeleteRequest = (url, req) => {
+  xhttp.open("DELETE", url, true);
+  setHeader(req)
+}
+
+const setHeader = (req) => {
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send(req);
 }
 
 // Create a "close" button and append it to each list item
@@ -63,7 +77,7 @@ function addDeleteEventListener() {
       div.style.display = "none";
       const id = div.id;
       const req = 'id='+id; // Request content
-      sendPostRequest("delete", req);
+      sendDeleteRequest("task", req);
     }
   }
 }
@@ -81,7 +95,7 @@ function addCheckedEventListener() {
         const id = ev.target.id;
         const isChecked = ev.target.classList.contains('checked');
         const req = 'id='+id+'&status='+isChecked; // Request content
-        sendPostRequest("update", req);
+        sendPutRequest("task", req);
     }
   }, false);
 }
@@ -110,7 +124,7 @@ function newElement() {
   li.setAttributeNode(id);
 
   const req = 'id='+id.value+'&task='+task; // Request content
-  sendPostRequest("create", req);
+  sendPostRequest("task", req);
 
   todolist.appendChild(li);
   itemInput.value = "";

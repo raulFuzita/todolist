@@ -48,7 +48,7 @@ const user_login_post = async (req, res) => {
             req.session.user = userSession;
             req.session.error = 'success';
             console.log(req.session.error);
-            res.redirect('/todolist');
+            res.redirect('/task');
         }else{
             req.session.error = 'user doesn\'t exist';
             console.log(req.session.error);
@@ -92,7 +92,8 @@ const user_signup_post = async (req, res) => {
         // Sets user object properties
         user.setName(userForm.name.trim())
             .setEmail(userForm.email.trim())
-            .setPassword(passwordHash);
+            .setPassword(passwordHash)
+            .setSettings({settings: 'auth', enable: false, token: ''})
         // Checks if a user already exists. Otherwise a user is created.
 
         const tempUser = await userDAO.getByEmail(user.email);

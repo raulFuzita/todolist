@@ -56,8 +56,6 @@ const task_create_post = async (req, res) => {
             If this is the first task for a user it'll be set a task structure in the JSON file.
             If at least one task exist already the user's task is updated with a new one added in.
         */
-       console.log('=======================================')
-       console.log(userTask)
         if(!userTask) {
             const newTask = new Task(userId); // Creates a task object
             // Assigns an ID and a task to the task object.

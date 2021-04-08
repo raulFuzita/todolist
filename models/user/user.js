@@ -12,6 +12,7 @@ class User {
         this.name = "";
         this.email = "";
         this.password = "";
+        this.settings = []
     }
 
     /**
@@ -52,6 +53,11 @@ class User {
     setPassword(password){
         this.password = password; 
         return this;
+    }
+
+    setSettings(settings){
+        this.settings.push(settings)
+        return this
     }
 };
 

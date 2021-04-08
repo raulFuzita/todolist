@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>todolist</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="assets/css/Navigation-with-Button.css">
+    <link rel="stylesheet" href="assets/css/todo_style.css">
+</head>
+
+<body>
+    
+    <%- include("./partials/nav.ejs") %>
+    <% isChecked = auth.enable ? 'checked': '' %>
+    <% token = auth.token %>
+
+    <div class="container">
+        <div class="text-center mx-auto" style="margin: 30px;margin-top: 30px;max-width: 900px;padding: 10px;">
+            <h2>Settings</h2>
+        </div>
+        <div class="mx-auto" style="margin: 30px;margin-top: 30px;max-width: 900px;min-height: 250px;padding: 10px;">
+            <h3>Authorization</h3>
+            <div class="row" style="margin-top: 20px;">
+                <div class="col mb-2">
+                    <div class="custom-control custom-switch">
+  	                    <input type="checkbox" class="custom-control-input" id="tokenToggle" <%= isChecked %>>
+  	                    <label class="custom-control-label" for="tokenToggle">Allow Token</label>
+                    </div>
+                </div>
+                <div class="col col-md-9 col-12 mb-2">
+                    <div class="group-form-icon">
+                        <input type="text" id="tokenField" readonly="" placeholder="No token yet" value="<%= token %>">
+                        <span class="d-inline-block" id="copyToken">
+                            <i class="fa fa-clone" data-toggle="tooltip" data-bss-tooltip="" title="Click to copy"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <%- include("./partials/footer.ejs") %>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/settings.js"></script>
+</body>
+
+</html>

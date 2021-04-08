@@ -3,12 +3,8 @@
     Whatever page or function that depends on a session will work
     with its default state.
 */
-const logout = (req, res) => {
+exports.logout = (req, res) => {
     req.session.user = null;
     req.session.error = null;
-    res.redirect('/');
-}
-
-module.exports = {
-    logout
+    res.redirect('/')
 }
