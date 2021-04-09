@@ -1,7 +1,7 @@
-const crypto = require('crypto');
-const UserDAO = require('../../models/dao/mongoDB/user_dao');
-const User = require('../../models/user/user');
-const secret = 'todo_user'; // Secret for the incriptation
+const crypto = require('crypto')
+const UserDAO = require('../../models/dao/mongoDB/user_dao')
+const User = require('../../models/user/user')
+const secret = 'todo_user' // Secret for the incriptation
 
 /**
  * This function will render the index page
@@ -9,7 +9,7 @@ const secret = 'todo_user'; // Secret for the incriptation
  * @param {HTTP} res - Response
  */
 const user_index = (req, res) => {
-    res.redirect('/index');
+    res.redirect('/index')
 }
 
 /**
@@ -18,7 +18,7 @@ const user_index = (req, res) => {
  * @param {HTTP} res - Response
  */
 const user_login_get = (req, res) => {
-    res.render('login', {session: req.session});
+    res.render('login', {session: req.session})
 }
 
 /**
@@ -29,10 +29,10 @@ const user_login_get = (req, res) => {
  * @param {HTTP} res - Response
  */
 const user_login_post = async (req, res) => {
-    const userDAO = new UserDAO();
-    const userForm = req.body; // gets an object from a form
+    const userDAO = new UserDAO()
+    const userForm = req.body // gets an object from a form
     
-    let user = await userDAO.getByEmail(userForm.email.trim()); // retrives a user with such email.
+    let user = await userDAO.getByEmail(userForm.email.trim()) // retrives a user with such email.
 
     // If a user doesn't exist with such credentials variable user is set to null.
     if(user){
@@ -45,20 +45,20 @@ const user_login_post = async (req, res) => {
                 email: user.email
             }
             // Sets session
-            req.session.user = userSession;
-            req.session.error = 'success';
-            console.log(req.session.error);
-            res.redirect('/task');
+            req.session.user = userSession
+            req.session.error = 'success'
+            console.log(req.session.error)
+            res.redirect('/task')
         }else{
-            req.session.error = 'user doesn\'t exist';
+            req.session.error = 'user doesn\'t exist'
             console.log(req.session.error);
-            res.render('login', {session: req.session});
+            res.render('login', {session: req.session})
         }
             
     } else {
-        req.session.error = 'user doesn\'t exist';
-        console.log(req.session.error);
-        res.render('login', {session: req.session});
+        req.session.error = 'user doesn\'t exist'
+        console.log(req.session.error)
+        res.render('login', {session: req.session})
     }
 }
 
@@ -68,7 +68,7 @@ const user_login_post = async (req, res) => {
  * @param {HTTP} res - Response
  */
 const user_signup_get = (req, res) => {
-    res.render('signup', {session: req.session});
+    res.render('signup', {session: req.session})
 }
 
 /**
@@ -79,15 +79,15 @@ const user_signup_get = (req, res) => {
  * @param {HTTP} res - Response
  */
 const user_signup_post = async (req, res) => {
-    const userForm = req.body;
-    const userDAO = new UserDAO();
+    const userForm = req.body
+    const userDAO = new UserDAO()
 
     if(checkPassword(userForm)){
-        let user = new User(); // Creates a user object
+        let user = new User() // Creates a user object
         // encrypts the password according to sha256 and the secret word.
         let passwordHash = crypto.createHmac('sha256', secret)
                     .update(userForm.password.trim())
-                    .digest('hex');
+                    .digest('hex')
 
         // Sets user object properties
         user.setName(userForm.name.trim())
@@ -96,25 +96,25 @@ const user_signup_post = async (req, res) => {
             .setSettings({settings: 'auth', enable: false, token: ''})
         // Checks if a user already exists. Otherwise a user is created.
 
-        const tempUser = await userDAO.getByEmail(user.email);
-        let email = tempUser ? tempUser.email : null;
+        const tempUser = await userDAO.getByEmail(user.email)
+        let email = tempUser ? tempUser.email : null
 
         if (user.email != email){
-            userDAO.set(user);
-            req.session.error = 'success';
-            console.log(req.session.error);
-            req.session.email = user.email;
-            res.redirect('/login');
+            userDAO.set(user)
+            req.session.error = 'success'
+            console.log(req.session.error)
+            req.session.email = user.email
+            res.redirect('/login')
         } else {
-            req.session.error = 'user already exist';
-            console.log(req.session.error);
-            res.render('signup', {session: req.session});
+            req.session.error = 'user already exist'
+            console.log(req.session.error)
+            res.render('signup', {session: req.session})
         }
             
     } else {
-        req.session.error = 'password is not equal';
-        console.log(req.session.error);
-        res.render('signup', {session: req.session});
+        req.session.error = 'password is not equal'
+        console.log(req.session.error)
+        res.render('signup', {session: req.session})
     }       
 }
 
@@ -127,8 +127,8 @@ const user_signup_post = async (req, res) => {
 const validateUser = (user1, user2) => {
     let passwordHash = crypto.createHmac('sha256', secret)
                     .update(user2.password.trim())
-                    .digest('hex');
-    return user1.password === passwordHash;
+                    .digest('hex')
+    return user1.password === passwordHash
 }
 
 /**
@@ -139,9 +139,9 @@ const validateUser = (user1, user2) => {
  * @returns boolean
  */
 const checkPassword = (userForm) => {
-    let password = userForm.password;
-    let confirmPassword = userForm.confirmPassword;
-    return validateSize(password) && validateSize(confirmPassword) && password === confirmPassword;
+    let password = userForm.password
+    let confirmPassword = userForm.confirmPassword
+    return validateSize(password) && validateSize(confirmPassword) && password === confirmPassword
 }
 
 /**
@@ -152,7 +152,7 @@ const checkPassword = (userForm) => {
  * @returns boolean
  */
 const validateSize = (password) => {
-    return password.length >= 8 && password.length <= 160;
+    return password.length >= 8 && password.length <= 160
 }
 
 module.exports = {

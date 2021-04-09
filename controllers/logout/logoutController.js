@@ -4,7 +4,7 @@
     with its default state.
 */
 exports.logout = (req, res) => {
-    req.session.user = null;
-    req.session.error = null;
+    req.session.user = null
+    req.session.error = null
     res.redirect('/')
 }

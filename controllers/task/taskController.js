@@ -1,5 +1,4 @@
-const TaskDAO = require('../../models/dao/mongoDB/task_dao');
-const Task = require('../../models/task/task');
+const taskFacade = require('../../models/facades/task_facade')
 
 /**
  * This function renders todolist. If a user is not logged in 
@@ -7,26 +6,20 @@ const Task = require('../../models/task/task');
  * @param {HTTP} req - Request
  * @param {HTTP} res - Response
  */
-const task_index_get = async (req, res) => {
+ exports.task_index_get = async (req, res) => {
 
-    const taskDAO = new TaskDAO();
+    const {user} = req.session
 
-    if (!req.session.user)
+    if (!user)
         res.redirect('/');
     
-    const userId = req.session.user.id;
-    let task = await taskDAO.getByUserId(userId);
-    /* 
-        Checks if a user exist by using a ternary operator. 
-        Returns a user's tasks. Otherwise null.
-    */
-    tasks = task ? task.user.tasks : null;
+    tasks = await taskFacade.getAllTasks(user.id)
     // Renders todolist and send as response a session and tasks
     res.render('todolist', {
         session: req.session, 
         email: req.session.email,
         tasks: tasks
-    });
+    })
 }
 
 /**
@@ -35,45 +28,21 @@ const task_index_get = async (req, res) => {
  * @param {HTTP} req - Request
  * @param {HTTP} res - Response
  */
-const task_create_post = async (req, res) => {
+ exports.task_create_post = async (req, res) => {
 
-    const taskDAO = new TaskDAO();
+    const {user} = req.session
+    const {id, task} = req.body
 
-    if (!req.session.user) 
+    if (!user) 
         res.status(404).render('404', {session: req.session});
-
-    /*
-        If a user session exist and there is a request in the body
-        it'll move on to create a new item.
-    */
-    if (req.session.user && req.body){
-        const userId = req.session.user.id; // Gets a user's id and stores in a shorter variable name
-        let userTask = await taskDAO.getByUserId(userId); // Retrieves a user by passing an ID.
-        const taskId = req.body.id; // Gets item ID
-        const task = req.body.task.trim(); // Gets task content and trims to remove spaces at the begining and end of variable
-        
-        /*
-            If this is the first task for a user it'll be set a task structure in the JSON file.
-            If at least one task exist already the user's task is updated with a new one added in.
-        */
-        if(!userTask) {
-            const newTask = new Task(userId); // Creates a task object
-            // Assigns an ID and a task to the task object.
-            newTask.createTask(taskId, task);
-            // Returns a user object ready to be written in a file.
-            const user = newTask.getObjectTask();
-            console.log({return: await taskDAO.create(user)})
-        } else {
-            const status = false
-            const newTask = {userId, taskId, status, task}
-            console.log({return: await taskDAO.append(newTask)})
-        }
-
-    } else {
-        console.log('There is no request in the body request');
-    }
+    
+    await taskFacade.createTask({
+        userId: user.id,
+        taskId: id,
+        task: task.trim()
+    })
     // Renders todolist again and passes a session as response.
-    res.render('todolist', {session: req.session});
+    res.render('todolist', {session: req.session})
 }
 
 /**
@@ -82,29 +51,21 @@ const task_create_post = async (req, res) => {
  * @param {HTTP} req - Request
  * @param {HTTP} res - Response
  */
-const task_update_post = async (req, res) => {
+ exports.task_update_post = async (req, res) => {
 
-    const taskDAO = new TaskDAO();
+    const {user} = req.session
+    const {id, status} = req.body
 
-    if (!req.session.user) 
+    if (!user) 
         res.status(404).render('404', {session: req.session});
-
-        /*
-            If a user session exist and there is a request in the body
-            it'll move on to create a new item.
-        */
-        if (req.session.user && req.body){
-            const userId = req.session.user.id; // Gets a user's id and stores in a shorter variable name
-            const taskId = req.body.id; // Gets item ID
-            const status = req.body.status; // Gets item status
-            const task = {userId, taskId, status}
-            // Checks if the target task exist. 
-            console.log({return: await taskDAO.update(task)}); // Updates user's tasks
-        } else {
-            console.log('There is no request in the body request');
-        }
-        // Renders todolist again and passes a session as response.
-        res.render('todolist', {session: req.session});
+    
+    console.log({return: await taskFacade.updateTask({
+        userId: user.id,
+        taskId: id,
+        status: status
+    })}); // Updates user's tasks
+    // Renders todolist again and passes a session as response.
+    res.render('todolist', {session: req.session})
 }
 
 /**
@@ -113,42 +74,18 @@ const task_update_post = async (req, res) => {
  * @param {HTTP} req - Request
  * @param {HTTP} res - Response
  */
-const task_delete_post = async (req, res) => {
+exports.task_delete_post = async (req, res) => {
 
-    const taskDAO = new TaskDAO();
+    const {user} = req.session
+    const {id} = req.body
 
-    if (!req.session.user) 
-        res.status(404).render('404', {session: req.session});
-
-         /*
-            If a user session exist and there is a request in the body
-            it'll move on to create a new item.
-        */
-        if (req.session.user && req.body){
-            const userId = req.session.user.id; // Gets a user's id and stores in a shorter variable name
-            let userTask = await taskDAO.getByUserId(userId); // Retrieves a user by passing an ID.
-            const taskId = req.body.id; // Gets item ID
-            const newTask = new Task(userId); // Creates a task object
-            // Checks if the target task exist.
-            if(userTask){
-                newTask.tasks = userTask.user.tasks; // Gets all the user's tasks
-                newTask.deleteTask(taskId); // deletes an item based on an ID
-                // Returns a user object ready to be written in a file.
-                const user = newTask.getObjectTask();
-                console.log({return: await taskDAO.deleteById({userId, taskId})}); // Updates user's tasks
-            } else 
-                console.log('Task doesn\'t exist');
-    
-        } else {
-            console.log('There is no request in the body request');
-        }
-        // Renders todolist again and passes a session as response.
-        res.render('todolist', {session: req.session});
-}
-
-module.exports = {
-    task_index_get,
-    task_create_post,
-    task_update_post,
-    task_delete_post
+    if (!user) 
+        res.status(404).render('404', {session: req.session})
+        
+    await taskFacade.deleteTask({
+        userId: user.id,
+        taskId: id
+    })
+    // Renders todolist again and passes a session as response.
+    res.render('todolist', {session: req.session})
 }
