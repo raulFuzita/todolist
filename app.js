@@ -3,12 +3,12 @@ const express = require('express')
 const session = require('express-session')
 const morgan = require('morgan')
 const dotenv = require('dotenv')
-
+const db = require('./database/mongoDB/connector')
 // Imports Routers
 
 dotenv.config()
 const app = express()
-
+db.conn()
 // Sets a template engine
 app.set('view engine', 'ejs')
 

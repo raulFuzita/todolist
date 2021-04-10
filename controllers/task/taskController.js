@@ -9,7 +9,7 @@ const taskFacade = require('../../models/facades/task_facade')
  exports.task_index_get = async (req, res) => {
 
     const {user} = req.session
-
+    
     if (!user)
         res.redirect('/');
     

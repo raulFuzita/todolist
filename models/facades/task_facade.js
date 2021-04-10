@@ -3,8 +3,8 @@ const Task = require('../task/task')
 
 exports.getAllTasks = async (userId) => {
     const taskDAO = new TaskDAO()
-    const {user} = await taskDAO.getByUserId(userId)
-    return user ? user.tasks : null
+    const data = await taskDAO.getByUserId(userId)
+    return data ? data.user.tasks : []
 }
 
 exports.createTask = async (userTask) => {
@@ -26,7 +26,6 @@ exports.createTask = async (userTask) => {
 
 exports.updateTask = async (task) => {
     const taskDAO = new TaskDAO()
-    const {userId, taskId, status} = task
     return await taskDAO.update(task)
 }
 

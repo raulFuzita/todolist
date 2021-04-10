@@ -1,11 +1,5 @@
-const db = require('../../../database/mongoDB/connector')
 const User = require('../../../database/users/mongoDB/user_schema')
-
 class UserDAO {
-
-    constructor(){
-        db.conn()
-    }
 
     /**
      * This method create a new user. If the object doesn't match

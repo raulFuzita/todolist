@@ -15,21 +15,26 @@
 
 <body>
 
-    <%- include("./partials/nav.ejs") %> 
+    <%- include("./partials/nav.ejs") %>
+    <%
+        const {formCache, error} = session
+        const {name, email} = !!formCache ? formCache : ''
+        const {emailError, pwdError} = !!error ? error : false
+    %>
 
     <div class="login-clean">
         <form action="/signup" method="POST">
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
             <div class="form-group">
-                <input class="form-control" type="text" placeholder="Name" style="margin-bottom: 10px;" name="name" autocomplete="on" required="" pattern="[a-zA-Z\s]+" title="Only letters and not larger than 80 characters" maxlength="80">
-                <input class="form-control" type="email" name="email" placeholder="Email" required="">
-                <span class="form-error">Tets</span>
+                <input class="form-control" type="text" placeholder="Name" style="margin-bottom: 10px;" name="name" autocomplete="on" required="" pattern="[a-zA-Z\s]+" title="Only letters and not larger than 80 characters" maxlength="80" value="<%= name %>">
+                <input class="form-control" type="email" name="email" placeholder="Email" value="<%= email %>" required="" >
+                <% if(emailError) { %><span class="form-error"><%= emailError %></span><% } %>
             </div>
             <div class="form-group">
                 <input class="form-control" type="password" name="password" placeholder="Password" style="margin-bottom: 10px;" required="" minlength="8" maxlength="180" title="Size up to 160 characters" value="12345678">
                 <input class="form-control" type="password" name="confirmPassword" placeholder="Confirm Password" required="" minlength="8" maxlength="180" title="Size up to 160 characters" value="12345678">
-                <span class="form-error">Tets</span>
+                <% if(pwdError) { %><span class="form-error"><%= pwdError %></span><% } %>
             </div>
             <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Sign Up</button></div><a class="forgot" href="#">Forgot your email or password?</a>
         </form>

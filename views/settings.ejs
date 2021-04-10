@@ -16,8 +16,10 @@
 <body>
     
     <%- include("./partials/nav.ejs") %>
-    <% isChecked = auth.enable ? 'checked': '' %>
-    <% token = auth.token %>
+    <% 
+        isChecked = auth.enable ? 'checked': ''
+        token = auth.token 
+    %>
 
     <div class="container">
         <div class="text-center mx-auto" style="margin: 30px;margin-top: 30px;max-width: 900px;padding: 10px;">

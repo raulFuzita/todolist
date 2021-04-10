@@ -16,12 +16,16 @@
 <body>
 
     <%- include("./partials/nav.ejs") %>
-    <% email = (session.error != 'success') ? '' : session.email;%>
+    <% 
+        const email = !!session.email ? session.email : ''
+        const {error} = session
+    %>
 
     <div class="login-clean">
         <form method="post">
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
+            <% if(error) { %><span class="form-error"><%= error %></span><% } %>
             <div class="form-group">
                 <input class="form-control" type="email" name="email" placeholder="Email" value="<%= email %>" required=""></div>
             <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password" required="" minlength="8" maxlength="180" title="Size up to 160 characters" value="12345678"></div>

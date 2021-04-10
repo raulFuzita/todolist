@@ -3,8 +3,10 @@ const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 dotenv.config()
 
+const tokenSecret = process.env.API_SECRET || 'token_secret'
+
 exports.task_get = async (req, res) => {
-    jwt.verify(req.token, process.env.API_SECRET, (err, decoded) => {
+    jwt.verify(req.token, tokenSecret, (err, decoded) => {
         if (err) {
             res.sendStatus(403)
         } else {
@@ -16,7 +18,7 @@ exports.task_get = async (req, res) => {
 }
 
 exports.task_post = async (req, res) => {
-    jwt.verify(req.token, process.env.API_SECRET, (err, decoded) => {
+    jwt.verify(req.token, tokenSecret, (err, decoded) => {
         if (err) {
             res.sendStatus(403)
         } else {
@@ -38,7 +40,7 @@ exports.task_post = async (req, res) => {
 }
 
 exports.task_delete = async (req, res) => {
-    jwt.verify(req.token, process.env.API_SECRET, (err, decoded) => {
+    jwt.verify(req.token, tokenSecret, (err, decoded) => {
         if (err) {
             res.sendStatus(403)
         } else {
@@ -59,7 +61,7 @@ exports.task_delete = async (req, res) => {
 }
 
 exports.task_update = async (req, res) => {
-    jwt.verify(req.token, process.env.API_SECRET, (err, decoded) => {
+    jwt.verify(req.token, tokenSecret, (err, decoded) => {
         if (err) {
             res.sendStatus(403)
         } else {
