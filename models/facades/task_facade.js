@@ -8,10 +8,8 @@ exports.getAllTasks = async (userId) => {
 }
 
 exports.createTask = async (userTask) => {
-
     const {userId, taskId, task} = userTask
     const taskDAO = new TaskDAO()
-
     if(!await taskDAO.getByUserId(userId)) {
         const newTask = new Task(userId);
         newTask.createTask(taskId, task);
@@ -30,10 +28,8 @@ exports.updateTask = async (task) => {
 }
 
 exports.deleteTask = async (userTask) => {
-
     const {userId, taskId, task} = userTask
     const taskDAO = new TaskDAO()
-
     if(await taskDAO.getByUserId(userId)){
         console.log({return: await taskDAO.deleteById({userId, taskId})})
     } else 

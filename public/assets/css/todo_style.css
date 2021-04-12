@@ -111,6 +111,7 @@ ul.todo-list {
 }
 
 .group-form-icon input {
+  display: inline;
   width: 100%;
   border: none;
   outline: none;

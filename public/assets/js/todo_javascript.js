@@ -3,6 +3,7 @@ const todolist = document.getElementById("todoList");
 const itemInput = document.getElementById("itemInput");
 const close = document.getElementsByClassName("close");
 const nodeList = document.getElementsByClassName("todo-item");
+const csrfElement = document.getElementById("csrf");
 
 /*
  * This function is an IIFE (Immediately Invoked Function Expression).
@@ -37,7 +38,8 @@ const sendDeleteRequest = (url, req) => {
 
 const setHeader = (req) => {
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send(req);
+  csrf = `&_csrf=${csrfElement.value}`
+  xhttp.send(req+csrf);
 }
 
 // Create a "close" button and append it to each list item

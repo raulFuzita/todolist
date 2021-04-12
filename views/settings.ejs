@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="/assets/css/Login-Form-Clean.css">
     <link rel="stylesheet" href="assets/css/Footer-Dark.css">
     <link rel="stylesheet" href="assets/css/Navigation-with-Button.css">
     <link rel="stylesheet" href="assets/css/todo_style.css">
@@ -17,13 +18,49 @@
     
     <%- include("./partials/nav.ejs") %>
     <% 
-        isChecked = auth.enable ? 'checked': ''
-        token = auth.token 
+        const {user} = session
+        const isChecked = auth.enable ? 'checked': ''
+        const token = auth.token 
     %>
 
     <div class="container">
         <div class="text-center mx-auto" style="margin: 30px;margin-top: 30px;max-width: 900px;padding: 10px;">
             <h2>Settings</h2>
+        </div>
+        <div class="mx-auto" style="margin: 30px;margin-top: 30px;max-width: 900px;min-height: 250px;padding: 10px;">
+            <h3>Profile</h3>
+            <form class="setting-form" action="settings" method="post" style="min-width: 100%;">
+                <div class="form-row" style="margin-top: 20px;">
+                    <div class="col mb-2"><label class="col-form-label">Username</label></div>
+                    <div class="col col-md-9 col-12 mb-2">
+                        <div class="group-form-icon"><input class="form-control" type="text" data-toggle="tooltip" data-bss-tooltip="" id="nameField" placeholder="Username" pattern="[a-zA-Z]+" required="" title="Only letters and not larger than 80 characters" autocomplete="on" disabled="" value="<%= user.name %>"><span class="d-inline-block" id="nameIcon"><i class="fa fa-user-o" title="Click to copy"></i></span></div>
+                    </div>
+                </div>
+                <div class="form-row" style="margin-top: 20px;">
+                    <div class="col mb-2"><label class="col-form-label">Email</label></div>
+                    <div class="col col-md-9 col-12 mb-2">
+                        <div class="group-form-icon"><input class="form-control" type="email" id="emailField" placeholder="Valid email" autocomplete="on" disabled="" value="<%= user.email %>"><span class="d-inline-block" id="emailIcon"><i class="fa fa-envelope-o" title="Click to copy"></i></span></div>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-row" style="margin-top: 20px;">
+                    <div class="col mb-2"><label class="col-form-label">Password</label></div>
+                    <div class="col col-md-9 col-12 mb-2">
+                        <div class="group-form-icon"><input class="form-control" type="password" name="password" data-toggle="tooltip" data-bss-tooltip="" id="passwordInput" placeholder="Password" maxlength="160" title="Size up to 160 characters" required="" value=""><span class="d-inline-block" id="passwordIcon"><i class="fa fa-unlock-alt" title="Click to copy"></i></span></div>
+                    </div>
+                </div>
+                <div class="form-row" style="margin-top: 20px;">
+                    <div class="col mb-2"><label class="col-form-label">Confirm Password</label></div>
+                    <div class="col col-md-9 col-12 mb-2">
+                        <div class="group-form-icon"><input class="form-control" type="password" name="confirmPassword" data-toggle="tooltip" data-bss-tooltip="" id="confirmPasswordInput" placeholder="Confirm Password" maxlength="160" title="Size up to 160 characters" required="" value=""><span class="d-inline-block" id="ConfirmPasswordIcon"><i class="fa fa-unlock-alt" title="Click to copy"></i></span></div>
+                        <% if(error) { %><span class="form-error"><%= error %></span><% } %>
+                    </div>
+                </div>
+                <input class="form-control" id="csrf" type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <div class="form-row" style="margin-top: 20px;">
+                    <div class="col text-right"><button class="btn btn-primary" type="submit">Save</button></div>
+                </div>
+            </form>
         </div>
         <div class="mx-auto" style="margin: 30px;margin-top: 30px;max-width: 900px;min-height: 250px;padding: 10px;">
             <h3>Authorization</h3>

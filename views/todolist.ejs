@@ -23,6 +23,7 @@
                 <div id="todoDIV" class="todo-header">
                     <h3 style="margin: 5px;margin-bottom: 15px;">To Do List</h3>
                     <input type="text" id="itemInput" class="todo-input" placeholder="Type a task here...">
+                    <input class="form-control" id="csrf" type="hidden" name="_csrf" value="<%= csrfToken %>" />
                     <span class="addBtn" onclick="newElement()">Add</span>
                 </div>
                 <div>

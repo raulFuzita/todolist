@@ -14,7 +14,7 @@ const cloudDB = `mongodb+srv://${user}:atlas.${password}@${cluster}.mongodb.net/
 let dbURI = process.env.DB_HOST === 'server' ? cloudDB : localDB
 
 module.exports.conn = conn = () => {
-    mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
         .then((result) => console.log('connected to mongoDB'))
         .catch((err) => console.log(err))
 }

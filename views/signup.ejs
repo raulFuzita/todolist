@@ -36,6 +36,7 @@
                 <input class="form-control" type="password" name="confirmPassword" placeholder="Confirm Password" required="" minlength="8" maxlength="180" title="Size up to 160 characters" value="12345678">
                 <% if(pwdError) { %><span class="form-error"><%= pwdError %></span><% } %>
             </div>
+            <input class="form-control" type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Sign Up</button></div><a class="forgot" href="#">Forgot your email or password?</a>
         </form>
     </div>
