@@ -1,10 +1,13 @@
 const express = require('express')
-const router = express.Router()
-
-const settingsController = require('../../controllers/settings/settingsController')
+const { body } = require('express-validator'),
+router = express.Router(),
+settingsController = require('../../controllers/settings/settingsController')
 
 router.get('/', settingsController.setting_index_get)
-router.post('/', settingsController.setting_post)
-router.put('/', settingsController.setting_update)
+router.post('/',[
+    body('password').isLength({min: 8, max: 180}).escape(),
+    body('confirmPassword').isLength({min: 8, max: 180}).escape()
+], settingsController.setting_auth_post)
+router.put('/', settingsController.setting_auth_update)
 
 module.exports = router

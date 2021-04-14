@@ -1,0 +1,16 @@
+.doc-section {
+  padding: 5px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.doc-section p {
+  padding: 5px;
+  text-align: justify;
+}
+
+.doc-section .image-wrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+

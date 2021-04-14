@@ -46,14 +46,8 @@ class UserDAO {
      * @param {Object} user - It's an object of user. It's expected an object that match the schema.
      * @returns Object
      */
-    async update(userObject) {
-
-        const id = userObject.id
-
-        return await User.findByIdAndUpdate(
-            id,
-            {user: userObject}
-        )
+    async updatePassword({id, password}) {
+        return await User.findByIdAndUpdate(id,{password})
     }
 
     /**

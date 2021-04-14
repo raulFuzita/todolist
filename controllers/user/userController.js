@@ -1,5 +1,5 @@
 const userFacade = require('../../models/facades/user_facade')
-
+const { validationResult } = require('express-validator');
 /**
  * This function will render the index page
  * @param {HTTP} req - Request
@@ -26,6 +26,15 @@ const userFacade = require('../../models/facades/user_facade')
  * @param {HTTP} res - Response
  */
  exports.user_login_post = async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.render('login', {
+            session: {...req.session, error: 'The credentials don\'t meet the requirements' }
+        })
+        return
+    }
+
     userFacade.login(req.body)
     .then((user) => {
         req.session.user = user
@@ -55,6 +64,19 @@ exports.user_signup_get = (req, res) => {
  * @param {HTTP} res - Response
  */
  exports.user_signup_post = async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.render('login', {
+            session: {
+                ...req.session, 
+                formCache, 
+                error: 'The credentials don\'t meet the requirements' 
+            }
+        })
+        return
+    }
+
     userFacade.signup(req.body)
     .then((email) => {
         req.session.email = email

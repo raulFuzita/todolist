@@ -27,23 +27,11 @@ const encrypt = (val) => {
  * @returns boolean
  */
  const checkPassword = (password, confirmPassword) => {
-    return validateSize(password) && validateSize(confirmPassword) && password === confirmPassword
-}
-
-/**
- * This function will check if a password is bigger or equal to 8 characters 
- * and smaller or equal to 160 characters.
- * Returns true if password is according to the range. Otherwise false.
- * @param {string} password - User's password
- * @returns boolean
- */
- const validateSize = (password) => {
-    return password.length >= 8 && password.length <= 160
+    return password === confirmPassword
 }
 
 module.exports = {
     encrypt,
     validateUser,
     checkPassword,
-    validateSize
 }

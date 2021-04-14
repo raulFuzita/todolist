@@ -116,11 +116,64 @@ ul.todo-list {
   border: none;
   outline: none;
   padding-left: 5px;
-  padding-right: 30px;
+  padding-right: 25px;
   margin-right: -25px;
 }
 
 .group-form-icon span {
   cursor: pointer;
+}
+
+.form-image {
+  position: relative;
+  padding: 3px;
+}
+
+.form-image input[type=file] {
+  display: none;
+}
+
+.form-image img {
+  border-radius: 5px;
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+}
+
+.form-image label {
+  position: relative;
+}
+
+.dark-mask {
+  display: none;
+  position: absolute;
+  z-index: 90000;
+  width: 100%;
+  height: 100%;
+  max-width: 180px;
+  max-height: 180px;
+  background-color: #000;
+  opacity: 0.5;
+  transform: translateX(-100%);
+  border-radius: 5px;
+}
+
+.form-image i {
+  position: absolute;
+  z-index: 900001;
+  font-size: 2em;
+  color: #fff;
+  opacity: 0.8;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+}
+
+.form-image label:hover + .dark-mask {
+  display: inline-block;
+}
+
+.form-image button {
+  margin: 0 5px;
 }
 

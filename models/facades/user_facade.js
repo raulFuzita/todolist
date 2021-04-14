@@ -43,6 +43,7 @@ exports.signup = async (userForm) => {
                 .setEmail(email.trim())
                 .setPassword(passwordHash)
                 .setSettings({settings: 'auth', enable: false, token: ''})
+                .setSettings({settings: 'image', filename: '', originalName: ''})
             // Checks if a user already exists. Otherwise a user is created.
             userDAO.set(user)
             resolve(email)

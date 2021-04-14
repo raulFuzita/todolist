@@ -12,6 +12,19 @@ class SettingsDAO {
         return settings
     }
 
+    async updateImage(settings) {
+        const {id, filename, originalname} = settings
+        return await User.updateOne(
+            {"_id": id, "settings.settings": "image"},
+            {
+                "$set": {
+                    "settings.$.filename": filename,
+                    "settings.$.originalname": originalname,
+                }
+            }
+        )
+    }
+
     async updateAuth(settings) {
         const {id, enable, token} = settings
         return await User.updateOne(
