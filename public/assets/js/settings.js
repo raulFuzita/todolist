@@ -15,9 +15,14 @@ $('#copyToken').click(() => {
 })
 
 $('#tokenToggle').click(() => {
-    isEnableToken = $('#tokenToggle').is(':checked')
+    const isEnableToken = $('#tokenToggle').is(':checked')
     _csrf = $('#csrf').val()
     putData('settings', { auth:{enable: isEnableToken}, _csrf})
-    .then(data => $('#tokenField').val(data.token))
+    .then(data => {
+        $('#tokenField').val(data.token)
+        const alert = isEnableToken 
+        ? {auth: {status: 'alert-warning', message: 'API token is enable'}} 
+        : {auth: {status: 'alert-success', message: 'API token is disable'}}
+        yieldAlert(alert)
+    })
 })
-

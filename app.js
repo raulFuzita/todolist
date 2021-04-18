@@ -7,14 +7,14 @@ cookieParser = require('cookie-parser')
 csrf = require('csurf'),
 db = require('./database/mongoDB/connector'),
 isAuthenticated = require('./models/util/loggin_checker')
-// Imports Routers
+
 dotenv.config()
 const app = express()
 db.conn()
 // Sets a template engine
 app.set('view engine', 'ejs')
 
-// Makes public directory accessable.
+// Makes public and storage/images directory accessable.
 app.use(express.static('public'));
 app.use(express.static('storage/images'));
 app.use(express.urlencoded({ extended: true }))

@@ -11,15 +11,17 @@
     <link rel="stylesheet" href="/assets/css/Footer-Dark.css">
     <link rel="stylesheet" href="/assets/css/Navigation-with-Button.css">
     <link rel="stylesheet" href="/assets/css/todo_style.css">
+    <link rel="stylesheet" href="/assets/css/alert_boostrap.css">
 </head>
 
 <body>
 
     <%- include("./partials/nav.ejs") %>
 
+    <div id="alert-wrapper"></div>
     <main>
         <div class="container content">
-            <div class="mx-auto" style="margin-top: 30px;max-width: 900px;min-height: 250px;">
+            <div class="mx-auto" style="margin-top: 90px;max-width: 900px;min-height: 250px;">
                 <div id="todoDIV" class="todo-header">
                     <h3 style="margin: 5px;margin-bottom: 15px;">To Do List</h3>
                     <input type="text" id="itemInput" class="todo-input" placeholder="Type a task here...">
@@ -52,6 +54,7 @@
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.2.6/purify.min.js"></script>
+    <script src="assets/js/ejs_bootstrap_alert.js"></script>
     <script src="/assets/js/todo_javascript.js"></script>
 </body>
 

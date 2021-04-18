@@ -1,0 +1,25 @@
+#back-to-top {
+    display: none;
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    bottom: 35px;
+    right: 25px;
+    z-index: 999000;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: #202020;
+    cursor: pointer;
+    border-radius: 100%;
+  }
+  
+  #back-to-top:hover {
+    background: #555;
+  }
+
+  #back-to-top img {
+	width: 35px;
+	height: 35px;
+	margin-bottom: 4px;
+}

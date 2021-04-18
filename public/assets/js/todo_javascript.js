@@ -111,7 +111,10 @@ function newElement() {
 
   // If input is empty an alert message is fired.
   if (inputValue === '') {
-    alert("You must write something!");
+    yieldAlert({createTask: {
+        status: 'alert-danger',
+        message: 'You must write something!'
+    }})
     return;
   }
 

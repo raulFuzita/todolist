@@ -11,14 +11,22 @@ exports.loadSettings = async (id) => {
     const settings = await settingsDAO.get(id)
     const auth = settings.find(s => s.settings == 'auth')
     const image = settings.find(s => s.settings == 'image')
-    if (!image.filename) image.filename = 'assets/img/profile.png'
+    const pathToFile = `storage/images/${image.filename}`
+    if (!image.filename || !await checkFileExists(pathToFile))
+        image.filename = 'assets/img/profile.png'
     return {auth, image}
+}
+
+const checkFileExists = async (file) => {
+    return fs.promises.access(file, fs.constants.F_OK)
+            .then(() => true)
+            .catch(() => false)
 }
 
 exports.changeAuthorization = async ({id, email, auth}) => {
 
     const settingsDAO = new SettingsDAO()
-    let token = jwt.sign({id, email}, process.env.API_SECRET)
+    let token = jwt.sign({id, email}, process.env.API_SECRET || 'todolist')
 
     if (!auth.enable)
         token = ''
@@ -37,7 +45,10 @@ exports.changePassword = async (userObject) => {
     let pwdError
 
     if(!util.checkPassword(password, confirmPassword))
-        pwdError = 'password is not equal'
+        pwdError = {
+            status: 'alert-danger',
+            message: 'Password is not equal'
+        }
 
     const userDAO = new UserDAO()
     const user = await userDAO.getByEmail(email)
@@ -47,27 +58,50 @@ exports.changePassword = async (userObject) => {
         if (!pwdError) {
             user.password = util.encrypt(password)
             userDAO.updatePassword(user)
-            .then(() => resolve(false))
+            .then(() => resolve({image: {
+                status: 'alert-success',
+                message: 'Password was changed successfully'
+            }}))
             .catch((error) => reject(error))
         } else {
-            reject(pwdError)
+            reject({pwd: pwdError})
         }
     })
 }
 
 exports.uploadImage = async (imageObject) => {
-    if(`filename` in imageObject)
-        imageObject.filename = `${imageObject.filename}`
+    if(`filename` in imageObject === false)
+        throw {image: {
+            status: 'alert-danger',
+            message: 'No picture to upload'
+        }}
     const settingsDAO = new SettingsDAO()
-    return await settingsDAO.updateImage(imageObject);
+    return new Promise((resolve, reject) => {
+        settingsDAO.updateImage(imageObject)
+        .then(() => resolve({image: {
+            status: 'alert-success',
+            message: 'Picture was uploaded successfully'
+        }}))
+        .catch((error) => reject(error))
+    })
 }
 
 exports.removeImage = async (id) => {
     const settingsDAO = new SettingsDAO()
-    const pathToFile = `${process.cwd()}/storage/images/${id}.jpg`
-    console.log(pathToFile)
-    return Promise.all([
-        fs.unlinkSync(pathToFile),
-        settingsDAO.updateImage({id, filename: '', originalName: ''})
-    ])
+    const pathToFile = `storage/images/${id}.jpg`
+    return new Promise((resolve, reject) => {
+        Promise.all([
+            checkFileExists(pathToFile),
+            fs.promises.unlink(pathToFile),
+            settingsDAO.updateImage({id, filename: '', originalname: ''})
+        ])
+        .then(() => resolve({image: {
+            status: 'alert-success',
+            message: 'Picture was deleted successfully '
+        }}))
+        .catch((error) => reject({image: {
+            status: 'alert-danger',
+            message: 'No picture to delete'
+        }}))
+    })
 }

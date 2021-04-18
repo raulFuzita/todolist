@@ -17,7 +17,10 @@ exports.login = async (userForm) => {
                 })
             }
         }
-        reject('user doesn\'t exist yet')
+        reject({form: {
+            status: 'alert-danger',
+            message: 'User does not exist'
+        }})
     })
 }
 
@@ -28,10 +31,16 @@ exports.signup = async (userForm) => {
     let pwdError, emailError
 
     if(!util.checkPassword(password, confirmPassword))
-        pwdError = 'password is not equal'
+        pwdError = {
+            status: 'alert-danger',
+            message: 'Password is not equal'
+        }
     
     if (await userDAO.getByEmail(email))
-        emailError = 'user already exist'
+        emailError = {
+            status: 'alert-danger',
+            message: 'User already exist'
+        }
 
     return new Promise((resolve, reject) => {
         if (!pwdError && !emailError){
@@ -43,7 +52,7 @@ exports.signup = async (userForm) => {
                 .setEmail(email.trim())
                 .setPassword(passwordHash)
                 .setSettings({settings: 'auth', enable: false, token: ''})
-                .setSettings({settings: 'image', filename: '', originalName: ''})
+                .setSettings({settings: 'image', filename: '', originalname: ''})
             // Checks if a user already exists. Otherwise a user is created.
             userDAO.set(user)
             resolve(email)

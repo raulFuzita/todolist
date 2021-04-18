@@ -16,8 +16,9 @@
 <body>
 
     <%- include("./partials/nav.ejs") %>
-    <% gotoTask = (session.user) ? 'task' : 'login';%>
-    <% console.log(session.user); %>
+    <% 
+        gotoTask = (session.user) ? 'task' : 'login'
+    %>
 
     <div class="highlight-phone" style="margin-top: 30px;">
         <div class="container">

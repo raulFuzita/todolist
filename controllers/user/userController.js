@@ -1,12 +1,30 @@
 const userFacade = require('../../models/facades/user_facade')
 const { validationResult } = require('express-validator');
+
 /**
  * This function will render the index page
  * @param {HTTP} req - Request
  * @param {HTTP} res - Response
  */
- exports.user_index = (req, res) => {
+exports.user_index = (req, res) => {
     res.redirect('/index')
+}
+
+const render = (req, res, path) => {
+    const error = req.session.error
+    const cache = req.session.cache
+    req.session.error = null
+    req.session.cache = null
+    let errors = JSON.stringify(error)
+    res.render(path, {session: req.session, cache, errors})
+}
+
+const loadLogin = (req, res) => {
+    render(req, res, 'login')
+}
+
+const loadSignup = (req, res) => {
+    render(req, res, 'signup')
 }
 
 /**
@@ -14,8 +32,8 @@ const { validationResult } = require('express-validator');
  * @param {HTTP} req - Request
  * @param {HTTP} res - Response
  */
- exports.user_login_get = (req, res) => {
-    res.render('login', {session: req.session})
+exports.user_login_get = (req, res) => {
+    loadLogin(req, res)
 }
 
 /**
@@ -28,10 +46,13 @@ const { validationResult } = require('express-validator');
  exports.user_login_post = async (req, res) => {
 
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
-        res.render('login', {
-            session: {...req.session, error: 'The credentials don\'t meet the requirements' }
-        })
+        req.session.error = {form: {
+            status: 'alert-danger',
+            message: 'The credentials do not meet the requirements'
+        }}
+        loadLogin(req, res)
         return
     }
 
@@ -41,9 +62,9 @@ const { validationResult } = require('express-validator');
         res.redirect('/task')
     })
     .catch((error) => {
-        res.render('login', {
-            session: {...req.session, error}
-        })
+        req.session.error = error
+        req.session.cache = {email: req.body.email}
+        loadLogin(req, res)
     })
 }
 
@@ -53,7 +74,7 @@ const { validationResult } = require('express-validator');
  * @param {HTTP} res - Response
  */
 exports.user_signup_get = (req, res) => {
-    res.render('signup', {session: req.session})
+    loadSignup(req, res)
 }
 
 /**
@@ -67,24 +88,22 @@ exports.user_signup_get = (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        res.render('login', {
-            session: {
-                ...req.session, 
-                formCache, 
-                error: 'The credentials don\'t meet the requirements' 
-            }
-        })
+        req.session.error = {credential: {
+            status: 'alert-danger',
+            message: 'The credentials do not meet the requirements'
+        }}
+        loadSignup(req, res)
         return
     }
 
     userFacade.signup(req.body)
     .then((email) => {
-        req.session.email = email
+        req.session.cache = {email}
         res.redirect('/login')
     })
     .catch(({formCache, error}) => {
-        res.render('signup', {
-            session: {...req.session, formCache, error}
-        })
+        req.session.error = error
+        req.session.cache = formCache
+        loadSignup(req, res)
     })   
 }
