@@ -60,7 +60,7 @@ at this link: [Atlas MongoDB](https://account.mongodb.com/account/login)
 | Variables       | Values                             |
 |-----------------|------------------------------------|
 | HOST_NAME       | 0.0.0.0                            |
-| SERVER_PORT     | 3000                               |
+| SERVER_PORT     | 8000                               |
 | PASSWORD_SECRET | encryption_secret                  |
 | SESSION_SECRET  | encryption_secret                  |
 | DB_HOST         | mongodb://localhost:27017/todolist |
