@@ -66,7 +66,7 @@ app.use((req, res) => {
 })
 
 // Server listener
-let server = app.listen(process.env.SERVER_PORT || 8000, process.env.HOST_NAME || '0.0.0.0', () => {
+let server = app.listen(process.env.PORT || 8000, process.env.HOST_NAME || '0.0.0.0', () => {
     console.log("Server is running on port " + server.address().port 
                         + " and address at " + server.address().address)
 })
