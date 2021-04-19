@@ -26,7 +26,7 @@ const checkFileExists = async (file) => {
 exports.changeAuthorization = async ({id, email, auth}) => {
 
     const settingsDAO = new SettingsDAO()
-    let token = jwt.sign({id, email}, process.env.API_SECRET || 'todolist')
+    let token = jwt.sign({id, email}, process.env.API_SECRET || 'token_secret')
 
     if (!auth.enable)
         token = ''

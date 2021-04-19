@@ -43,7 +43,7 @@ app.use(function (err, req, res, next) {
 
 // Sets a session and an ID cookie which is the secret parameter
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'todolist',
+    secret: process.env.SESSION_SECRET || 'encryption_secret',
     resave: false,
     saveUninitialized: true
 }))
