@@ -1,6 +1,7 @@
 const UserDAO = require('../../models/dao/mongoDB/user_dao'),
 User = require('../../models/user/user'),
 util = require('../util/validators')
+const {createError, createLazyError} = require('../util/errors_util')
 
 exports.login = async (userForm) => {
 
@@ -17,10 +18,7 @@ exports.login = async (userForm) => {
                 })
             }
         }
-        reject({form: {
-            status: 'alert-danger',
-            message: 'User does not exist'
-        }})
+        reject(createLazyError('alert-danger', 'User does not exist'))
     })
 }
 
@@ -31,16 +29,10 @@ exports.signup = async (userForm) => {
     let pwdError, emailError
 
     if(!util.checkPassword(password, confirmPassword))
-        pwdError = {
-            status: 'alert-danger',
-            message: 'Password is not equal'
-        }
+        pwdError = createError('alert-danger', 'Password is not equal')
     
     if (await userDAO.getByEmail(email))
-        emailError = {
-            status: 'alert-danger',
-            message: 'User already exist'
-        }
+        emailError = createError('alert-danger', 'User already exist')
 
     return new Promise((resolve, reject) => {
         if (!pwdError && !emailError){
@@ -53,6 +45,7 @@ exports.signup = async (userForm) => {
                 .setPassword(passwordHash)
                 .setSettings({settings: 'auth', enable: false, token: ''})
                 .setSettings({settings: 'image', filename: '', originalname: ''})
+                .setSettings({settings: 'password_recovery', token: '', expirydate: ''})
             // Checks if a user already exists. Otherwise a user is created.
             userDAO.set(user)
             resolve(email)

@@ -1,6 +1,6 @@
 const userFacade = require('../../models/facades/user_facade')
 const { validationResult } = require('express-validator');
-
+const {createError} = require('../../models/util/errors_util')
 /**
  * This function will render the index page
  * @param {HTTP} req - Request
@@ -48,10 +48,9 @@ exports.user_login_get = (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        req.session.error = {form: {
-            status: 'alert-danger',
-            message: 'The credentials do not meet the requirements'
-        }}
+        req.session.error = {form: 
+            createError('alert-danger', 'The credentials do not meet the requirements')
+        }
         loadLogin(req, res)
         return
     }
@@ -88,10 +87,9 @@ exports.user_signup_get = (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        req.session.error = {credential: {
-            status: 'alert-danger',
-            message: 'The credentials do not meet the requirements'
-        }}
+        req.session.error = {credential: 
+            createError('alert-danger', 'The credentials do not meet the requirements')
+        }
         loadSignup(req, res)
         return
     }

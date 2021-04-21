@@ -1,11 +1,6 @@
-const db = require('../../../database/mongoDB/connector')
 const User = require('../../../database/users/mongoDB/user_schema')
 
 class SettingsDAO {
-
-    constructor(){
-        db.conn()
-    }
 
     async get(id) {
         const {settings} = await User.findById(id)

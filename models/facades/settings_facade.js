@@ -1,3 +1,4 @@
+const {createLazyError, createError} = require('../util/errors_util')
 const UserDAO = require('../dao/mongoDB/user_dao'),
 SettingsDAO = require('../dao/mongoDB/settings_dao'),
 util = require('../util/validators'),
@@ -7,11 +8,13 @@ dotenv = require('dotenv')
 dotenv.config()
 
 exports.loadSettings = async (id) => {
+
     const settingsDAO = new SettingsDAO()
     const settings = await settingsDAO.get(id)
     const auth = settings.find(s => s.settings == 'auth')
     const image = settings.find(s => s.settings == 'image')
     const pathToFile = `storage/images/${image.filename}`
+
     if (!image.filename || !await checkFileExists(pathToFile))
         image.filename = 'assets/img/profile.png'
     return {auth, image}
@@ -45,10 +48,7 @@ exports.changePassword = async (userObject) => {
     let pwdError
 
     if(!util.checkPassword(password, confirmPassword))
-        pwdError = {
-            status: 'alert-danger',
-            message: 'Password is not equal'
-        }
+        pwdError = createError('alert-danger', 'Password is not equal')
 
     const userDAO = new UserDAO()
     const user = await userDAO.getByEmail(email)
@@ -58,10 +58,9 @@ exports.changePassword = async (userObject) => {
         if (!pwdError) {
             user.password = util.encrypt(password)
             userDAO.updatePassword(user)
-            .then(() => resolve({image: {
-                status: 'alert-success',
-                message: 'Password was changed successfully'
-            }}))
+            .then(() => resolve(
+                createLazyError('alert-success', 'Password was changed successfully')
+            ))
             .catch((error) => reject(error))
         } else {
             reject({pwd: pwdError})
@@ -70,38 +69,37 @@ exports.changePassword = async (userObject) => {
 }
 
 exports.uploadImage = async (imageObject) => {
+
     if(`filename` in imageObject === false)
-        throw {image: {
-            status: 'alert-danger',
-            message: 'No picture to upload'
-        }}
+        throw createLazyError('alert-danger', 'No picture to upload')
+
     const settingsDAO = new SettingsDAO()
+
     return new Promise((resolve, reject) => {
         settingsDAO.updateImage(imageObject)
-        .then(() => resolve({image: {
-            status: 'alert-success',
-            message: 'Picture was uploaded successfully'
-        }}))
+        .then(() => resolve(
+            createLazyError('alert-success','Picture was uploaded successfully')
+        ))
         .catch((error) => reject(error))
     })
 }
 
 exports.removeImage = async (id) => {
+
     const settingsDAO = new SettingsDAO()
     const pathToFile = `storage/images/${id}.jpg`
+
     return new Promise((resolve, reject) => {
         Promise.all([
             checkFileExists(pathToFile),
             fs.promises.unlink(pathToFile),
             settingsDAO.updateImage({id, filename: '', originalname: ''})
         ])
-        .then(() => resolve({image: {
-            status: 'alert-success',
-            message: 'Picture was deleted successfully '
-        }}))
-        .catch((error) => reject({image: {
-            status: 'alert-danger',
-            message: 'No picture to delete'
-        }}))
+        .then(() => resolve(
+            createLazyError('alert-success','Picture was deleted successfully')
+        ))
+        .catch((error) => reject(
+            createLazyError('alert-danger','No picture to delete')
+        ))
     })
 }

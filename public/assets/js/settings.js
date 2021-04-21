@@ -16,7 +16,7 @@ $('#copyToken').click(() => {
 
 $('#tokenToggle').click(() => {
     const isEnableToken = $('#tokenToggle').is(':checked')
-    _csrf = $('#csrf').val()
+    const _csrf = $('#csrf').val()
     putData('settings', { auth:{enable: isEnableToken}, _csrf})
     .then(data => {
         $('#tokenField').val(data.token)

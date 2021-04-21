@@ -1,5 +1,6 @@
 const settingsFacade = require('../../models/facades/settings_facade')
 const { validationResult } = require('express-validator')
+const {createError, createLazyError} = require('../../models/util/errors_util')
 
 const getAllSettings = async (req, res) => {
     const {id} = req.session.user
@@ -23,12 +24,11 @@ exports.setting_auth_update = async (req, res) => {
 
 exports.setting_password_post = async (req, res) => {
 
-    const errors = validationResult(req);
+    const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        req.session.error = {pwd: {
-            status: 'alert-danger',
-            message: 'Password does not meet the requirements'
-        }}
+        req.session.error = {pwd: 
+            createError('alert-danger', 'Password does not meet the requirements')
+        }
         getAllSettings(req, res)
         return
     }
