@@ -22,8 +22,6 @@
     %>
     <div id="alert-wrapper"></div>
     <div class="login-clean">
-
-        <%- include("./partials/modal_forgot_pwd.ejs") %>
         
         <form action="/signup" method="POST">
             <h2 class="sr-only">Login Form</h2>
@@ -40,13 +38,11 @@
             <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
             </div>
-            <a class="forgot" href="#" data-toggle="modal" data-target="#popup">Forgot your password?</a>
         </form>
     </div>
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/ejs_bootstrap_alert.js"></script>
-    <script src="assets/js/modal_forgot_pwd.js"></script>
     <script>
         if('<%-errors%>') yieldAlert(JSON.parse('<%-errors%>'))
     </script>

@@ -2,20 +2,27 @@ const PwdRecoveryDAO = require('../dao/mongoDB/pwd_recovery_dao'),
 UserDAO = require('../dao/mongoDB/user_dao'),
 mailer = require('../mailer/mailer'),
 jwt = require('jsonwebtoken')
+const { createError} = require('../../models/util/errors_util')
 
 exports.requestResetPassword = async (email, resetAtPage) => {
 
-    return new Promise( async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
 
-        const token = await registerRequest(email)
+        registerRequest(email)
+        .then(token => {
 
-        content = {email, token, resetAtPage}
-        const transportObject = prepareEmail(content)
+            content = {email, token, resetAtPage}
+            const transportObject = prepareEmail(content)
 
-        mailer.sendEmail(transportObject)
-        .then((info) => resolve(info))
+            mailer.sendEmail(transportObject)
+            .then((info) => resolve(info))
+            .catch((err) => reject({
+                emailError: createError(
+                    'alert-danger', 
+                    'Server was unable to send the email, please try it later or contact the support team')
+            }))
+        })
         .catch((err) => reject(err))
-
     })
 }
 
@@ -27,10 +34,24 @@ const registerRequest = async (email) => {
     let expirydate = new Date()
     expirydate.setMinutes(expirydate.getMinutes() + 35)
 
-    const {id} = await userDAO.getByEmail(email)
-    pwdRecovery = {id, token, expirydate}
-    await pwdRecoveryDAO.updatePwdRecovery(pwdRecovery)
-    return token
+    return new Promise((resolve, reject) => {
+        userDAO.getByEmail(email)
+        .then(async (user) => {
+            if (user) {
+                pwdRecovery = {id: user.id, token, expirydate}
+                await pwdRecoveryDAO.updatePwdRecovery(pwdRecovery)
+                resolve(token)
+            }
+            reject({
+                emailError: createError(
+                    'alert-danger', 'Nonexistent user, please enter a registered email account.')
+            })
+        })
+        .catch(err => reject({
+            emailError: createError(
+                'alert-danger', 'Server could not respond, please try later or contact support team')
+        }))
+    })
 }
 
 const prepareEmail = (content) => {

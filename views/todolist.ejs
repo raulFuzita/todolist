@@ -56,6 +56,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.2.6/purify.min.js"></script>
     <script src="assets/js/ejs_bootstrap_alert.js"></script>
     <script src="/assets/js/todo_javascript.js"></script>
+    <script>
+        if('<%-errors%>') yieldAlert(JSON.parse('<%-errors%>'))
+    </script>
 </body>
 
 </html>

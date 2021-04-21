@@ -78,7 +78,7 @@ function addDeleteEventListener() {
       const div = this.parentElement;
       div.style.display = "none";
       const id = div.id;
-      const req = 'id='+id; // Request content
+      const req = 'taskId='+id; // Request content
       sendDeleteRequest("task", req);
     }
   }
@@ -96,7 +96,7 @@ function addCheckedEventListener() {
         ev.target.classList.toggle('checked');
         const id = ev.target.id;
         const isChecked = ev.target.classList.contains('checked');
-        const req = 'id='+id+'&status='+isChecked; // Request content
+        const req = 'taskId='+id+'&status='+isChecked; // Request content
         sendPutRequest("task", req);
     }
   }, false);
@@ -128,7 +128,7 @@ function newElement() {
   li.appendChild(text);
   li.setAttributeNode(id);
 
-  const req = 'id='+id.value+'&task='+task; // Request content
+  const req = 'taskId='+id.value+'&task='+task; // Request content
   sendPostRequest("task", req);
 
   todolist.appendChild(li);

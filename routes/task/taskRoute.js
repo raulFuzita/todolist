@@ -9,8 +9,11 @@ router.post('/',[
     body('task').escape()
 ], taskController.task_create_post) // Todolist request to create an item
 router.put('/',[
-    body('status').toBoolean()
+    body('taskId').notEmpty().isNumeric(),
+    body('status').notEmpty().toBoolean()
 ], taskController.task_update_post) // Todolist request to update item status
-router.delete('/', taskController.task_delete_post) // Todolist request to delete an item
+router.delete('/',[
+    body('taskId').notEmpty().isNumeric(),
+], taskController.task_delete_post) // Todolist request to delete an item
 
 module.exports = router

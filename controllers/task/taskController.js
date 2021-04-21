@@ -1,4 +1,13 @@
 const taskFacade = require('../../models/facades/task_facade')
+const { validationResult } = require('express-validator')
+const {createLazyError} = require('../../models/util/errors_util')
+
+const render = (req, res, data={}) => {
+    const {error} = req.session
+    req.session.error = null
+    const errors = JSON.stringify(error)
+    res.render('todolist', {session: req.session, data, errors})
+}
 
 /**
  * This function renders todolist. If a user is not logged in 
@@ -8,17 +17,13 @@ const taskFacade = require('../../models/facades/task_facade')
  */
  exports.task_index_get = async (req, res) => {
 
-    const {user} = req.session
+    const {user, email} = req.session
     if (!user)
         res.redirect('/');
     
     tasks = await taskFacade.getAllTasks(user.id)
     // Renders todolist and send as response a session and tasks
-    res.render('todolist', {
-        session: req.session, 
-        email: req.session.email,
-        tasks: tasks
-    })
+    render(req, res, tasks)
 }
 
 /**
@@ -29,19 +34,23 @@ const taskFacade = require('../../models/facades/task_facade')
  */
  exports.task_create_post = async (req, res) => {
 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        req.session.error = createLazyError(
+            'alert-danger', 'There is no reference to a task or filed is empty')
+        render(req, res)
+        return
+    }
+
     const {user} = req.session
-    const {id, task} = req.body
+    const {taskId, task} = req.body
 
     if (!user) 
         res.status(404).render('404', {session: req.session});
     
-    await taskFacade.createTask({
-        userId: user.id,
-        taskId: id,
-        task: task.trim()
-    })
+    await taskFacade.createTask({userId: user.id, taskId, task})
     // Renders todolist again and passes a session as response.
-    res.render('todolist', {session: req.session})
+    render(req, res)
 }
 
 /**
@@ -52,19 +61,24 @@ const taskFacade = require('../../models/facades/task_facade')
  */
  exports.task_update_post = async (req, res) => {
 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        req.session.error = createLazyError(
+            'alert-danger', 'There is no reference to a task or filed is empty')
+        render(req, res)
+        return
+    }
+
     const {user} = req.session
-    const {id, status} = req.body
+    const {taskId, status} = req.body
 
     if (!user) 
         res.status(404).render('404', {session: req.session});
     
-    console.log({return: await taskFacade.updateTask({
-        userId: user.id,
-        taskId: id,
-        status: status
-    })}); // Updates user's tasks
+    await taskFacade.updateTask({userId: user.id, taskId, status})
+    // Updates user's tasks
     // Renders todolist again and passes a session as response.
-    res.render('todolist', {session: req.session})
+    render(req, res)
 }
 
 /**
@@ -75,16 +89,21 @@ const taskFacade = require('../../models/facades/task_facade')
  */
 exports.task_delete_post = async (req, res) => {
 
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        req.session.error = createLazyError(
+            'alert-danger', 'There is no reference to a task or filed is empty')
+        render(req, res)
+        return
+    }
+
     const {user} = req.session
-    const {id} = req.body
+    const {taskId} = req.body
 
     if (!user) 
         res.status(404).render('404', {session: req.session})
         
-    await taskFacade.deleteTask({
-        userId: user.id,
-        taskId: id
-    })
+    await taskFacade.deleteTask({userId: user.id, taskId})
     // Renders todolist again and passes a session as response.
-    res.render('todolist', {session: req.session})
+    render(req, res)
 }
