@@ -8,6 +8,7 @@
 - <a href="#closeTask">Close Tasks</a>
 - <a href="#optionMenu">Option Menu</a>
 - <a href="#changePassword">Change Password And Adding a Picture</a>
+- <a href="#resetPassword">How to reset my password if I forger?</a>
 - <a href="#activateToken">Activate Token for API Access</a>
 - <a href="#useAPI">Using Token with API</a>
     - <a href="#getMethod">Get Method</a>
@@ -157,6 +158,45 @@ See below an example of a profile with a picture and changing the password.
 <br>
 
 ![text](/public/assets/img/ducumentation/img_8.2.png)
+
+<br>
+
+---
+
+<br>
+
+<h2 id="resetPassword">How to reset my password if I forger?</h2>
+
+<br>
+
+If you don't remember your password, don't worry we have an email system to send you a link to reset your password with safety and security. We have taken care of everything to make your life a lot easier.<br>
+To request a password reset you don't need to send an email or phone you can do it automatically. Go to the login page and click on the option called **Forgot your password**. A window with a for should popup.
+
+<br>
+
+![text](/public/assets/img/ducumentation/img_9.3.png)
+
+<br>
+
+Make sure to enter a valid password. After requesting a password reset you'll get a confirmation in this popup window.<br>
+You might have to wait a couple of minutes to get the email. If you don't see any email check or the spam box.
+If you don't have a valid email you'll never receive it. If you don't have a registered email or misspell it you'll get an alert message.<br>
+If you got an email to reset your password you must use it within **30 minutes** or the link will have expired. If you use the link and reset your password but you make a mistake and don't know the new password you can't reuse the link. You have to make a new request.
+
+<br>
+
+![text](/public/assets/img/ducumentation/img_9.4.png)
+
+<br>
+
+When you click on the link in the email body you should be redirected to a page ready to reset your password. If you click on the link and it doesn't work, see if your email provider is set to block external access.<br>
+You can also click on the link with the right button end copy the link address. If you're accessing it from your mobile phone, click on and hold it until an option display to copy the link. Once you copied the link paste it in your browser and press enter.
+
+To reset your password is straightforward, fill out the fields, make sure both fields have the same password, then press the **Submit** button.
+
+<br>
+
+![text](/public/assets/img/ducumentation/img_9.5.png)
 
 <br>
 
