@@ -7,6 +7,7 @@ const getAllSettings = async (req, res) => {
     const {auth, image} = await settingsFacade.loadSettings(id)
     error = req.session.error
     req.session.error = null
+    req.session.user.profile = `filename` in image ? image.filename : ''
     res.render('settings', {session: req.session, auth, image, errors: JSON.stringify(error)})
 }
 

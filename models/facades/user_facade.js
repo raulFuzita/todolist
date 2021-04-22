@@ -11,10 +11,14 @@ exports.login = async (userForm) => {
     return new Promise((resolve, reject) => {
         if(user){
             if (util.validateUser(user, userForm)){
+
+                const {filename} = user.settings.find(s => s.settings == 'image')
+
                 resolve({
                     id: user.id,
                     name: user.name,
-                    email: user.email
+                    email: user.email,
+                    profile: filename
                 })
             }
         }

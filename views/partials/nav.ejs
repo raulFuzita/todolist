@@ -1,7 +1,14 @@
 
-<% showLogMenu = (session.user) ? 'd-none' : '';%>
-<% showProfile = (session.user) ? '' : 'd-none';%>
-<% userName = (session.user) ? session.user.name : 'Error';%>
+<% 
+    const defaultImg = 'assets/img/profile.png'
+
+    let showLogMenu = (session.user) ? 'd-none' : ''
+    let showProfile = (session.user) ? '' : 'd-none'
+    let userName = (session.user) ? session.user.name : 'Error'
+    let profileImg = (session.user) ? session.user.profile : defaultImg
+
+    if (!profileImg) profileImg = defaultImg
+%>
 
 <header class="shadow-sm">
     <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
@@ -16,7 +23,7 @@
                     <a class="btn btn-light action-button" role="button" href="./signup">Sign Up</a>
                 </span>
                 <div class="dropdown <%= showProfile %> ml-auto" id="username">
-                    <a class="dropdown-toggle simple-link" data-toggle="dropdown" aria-expanded="false" id="username" href="#"><%= userName %></a>
+                    <a class="dropdown-toggle simple-link" data-toggle="dropdown" aria-expanded="false" id="username" href="#"><img id="topImgProfile" class="img-mini" src="<%=profileImg%>"><%= userName %></a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" id="todolist" href="task">To-do List</a>
                         <a class="dropdown-item" id="settings" href="settings">Settings</a>
