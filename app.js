@@ -5,8 +5,8 @@ morgan = require('morgan'),
 dotenv = require('dotenv'),
 cookieParser = require('cookie-parser')
 csrf = require('csurf'),
-db = require('./database/mongoDB/connector'),
-isAuthenticated = require('./models/util/loggin_checker')
+db = require('./database/mongoDB/connector')
+const {policy} = require('./models/util/loggin_checker')
 
 dotenv.config()
 const app = express()
@@ -48,17 +48,20 @@ app.use(session({
     saveUninitialized: true
 }))
 
+const visitor = {access: 'visitor'}
+const auth = {access: 'auth'}
+
 app.use('/index', require('./routes/indexRoute'))
-app.use('/login', require('./routes/user/loginRoute'))
-app.use('/signup', require('./routes/user/signupRoute'))
-app.use('/task', isAuthenticated, require('./routes/task/taskRoute'))
-app.use('/settings', isAuthenticated, require('./routes/settings/settingsRoute'))
-app.use('/profile',  isAuthenticated, require('./routes/settings/profileRoute'))
-app.use('/profile/delete', isAuthenticated, require('./routes/settings/deleteImageRoute'))
+app.use('/login', policy(visitor), require('./routes/user/loginRoute'))
+app.use('/signup', policy(visitor), require('./routes/user/signupRoute'))
+app.use('/task', policy(auth), require('./routes/task/taskRoute'))
+app.use('/settings', policy(auth), require('./routes/settings/settingsRoute'))
+app.use('/profile',  policy(auth), require('./routes/settings/profileRoute'))
+app.use('/profile/delete', policy(auth), require('./routes/settings/deleteImageRoute'))
 app.use('/documentation', require('./routes/documentation/docRoute'))
 app.use('/logout', require('./routes/logoutRoute')) // logout will clean session information
 app.use('/forgotpassword', require('./routes/user/forgotpwdRoute'))
-app.use('/resetpassword', require('./routes/user/resetpwdRoute'))
+app.use('/resetpassword', policy(visitor), require('./routes/user/resetpwdRoute'))
 // When access the url domain it's redirect to /index
 app.get('/', (req, res) => {res.redirect('/index')})
 // If a page is not found it's redirected to page 404
