@@ -60,11 +60,15 @@ at this link: [Atlas MongoDB](https://account.mongodb.com/account/login)
 | Variables       | Values                             |
 |-----------------|------------------------------------|
 | HOST_NAME       | 0.0.0.0                            |
-| SERVER_PORT     | 8000                               |
+| SERVER_PORT     | 3000                               |
 | PASSWORD_SECRET | encryption_secret                  |
 | SESSION_SECRET  | encryption_secret                  |
 | DB_HOST         | mongodb://localhost:27017/todolist |
 | API_SECRET      | token_secret                       |
+| MAIL_HOST       | smtp.mailtrap.io                   |
+| MAIL_USERNAME   | null                               |
+| MAIL_PASSWORD   | null                               |
+| MAIL_ENCRYPTION | null                               |
 
 <br>
 
