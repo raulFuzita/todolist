@@ -8,6 +8,7 @@
 - <a href="#closeTask">Close Tasks</a>
 - <a href="#optionMenu">Option Menu</a>
 - <a href="#changePassword">Change Password And Adding a Picture</a>
+- <a href="#darktheme">Change to Dark Theme</a>
 - <a href="#resetPassword">How to reset my password if I forger?</a>
 - <a href="#activateToken">Activate Token for API Access</a>
 - <a href="#useAPI">Using Token with API</a>
@@ -158,6 +159,31 @@ See below an example of a profile with a picture and changing the password.
 <br>
 
 ![text](/public/assets/img/ducumentation/img_8.2.png)
+
+<br>
+
+---
+
+<br>
+
+<h2 id="darktheme">Change to Dark Theme</h2>
+
+<br>
+
+Dark Theme is nowadays a trend in every web page, software, and even mobile phone application. Some people feel more comfortable with their eyes with a darker color. Some services out there charge for offering this feature, but we care about you, and our clients are in the first place for us. We offer you Dark Theme for free and is very easy to activate.<br>
+To activate the Dark Theme you have to log in first and then you can access your profile menu from anywhere. Click on the Dark Theme switch and the page should change.
+
+<br>
+
+![text](/public/assets/img/ducumentation/img_8.3.png)
+
+<br>
+
+If you want to change back to Light Theme you have o access your profile menu again and switch it off.
+
+<br>
+
+![text](/public/assets/img/ducumentation/img_8.4.png)
 
 <br>
 

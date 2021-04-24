@@ -42,6 +42,19 @@ exports.changeAuthorization = async ({id, email, auth}) => {
     return token
 }
 
+exports.changeTheme = async ({id, darktheme}) => {
+
+    const settingsDAO = new SettingsDAO()
+
+    const enable = darktheme.enable || false
+
+    return new Promise((resolve, reject) => {
+        settingsDAO.updateProperty({id, enable})
+        .then(() => resolve(enable))
+        .catch(() => reject(false))
+    })
+}
+
 exports.changePassword = async (userObject) => {
     
     const {email, password, confirmPassword} = userObject

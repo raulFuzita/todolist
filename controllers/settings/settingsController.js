@@ -23,6 +23,17 @@ exports.setting_auth_update = async (req, res) => {
     .catch(() => res.json({}))    
 }
 
+exports.setting_theme_update = async (req, res) => {
+    const {id} = req.session.user
+    const {darktheme} = req.body
+    settingsFacade.changeTheme({id, darktheme})
+    .then((data) => {
+        req.session.user.property.darktheme = data
+        res.json(data)
+    })
+    .catch(() => res.json({}))    
+}
+
 exports.setting_password_post = async (req, res) => {
 
     const errors = validationResult(req)

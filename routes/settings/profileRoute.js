@@ -15,5 +15,6 @@ upload = multer({ storage: storage })
 
 router.get('/', settingsController.setting_index_get)
 router.post('/', upload.single('image'), settingsController.setting_profile_post)
+router.put('/', settingsController.setting_theme_update)
 
 module.exports = router

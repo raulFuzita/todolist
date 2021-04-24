@@ -15,9 +15,3 @@ module.exports.policy = (rule={}) => {
     }
 }
 
-
-// if (Boolean(rule)){
-//     const {auth} = rule
-//     if (req.session.user && auth == 'visitor')
-//         res.redirect('/404')
-// }

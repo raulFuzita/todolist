@@ -13,12 +13,14 @@ exports.login = async (userForm) => {
             if (util.validateUser(user, userForm)){
 
                 const {filename} = user.settings.find(s => s.settings == 'image')
+                const {darktheme} = user.settings.find(s => s.settings == 'property')
 
                 resolve({
                     id: user.id,
                     name: user.name,
                     email: user.email,
-                    profile: filename
+                    profile: filename,
+                    property: {darktheme}
                 })
             }
         }
@@ -50,6 +52,7 @@ exports.signup = async (userForm) => {
                 .setSettings({settings: 'auth', enable: false, token: ''})
                 .setSettings({settings: 'image', filename: '', originalname: ''})
                 .setSettings({settings: 'password_recovery', token: '', expirydate: ''})
+                .setSettings({settings: 'property', darktheme: false})
             // Checks if a user already exists. Otherwise a user is created.
             userDAO.set(user)
             resolve(email)

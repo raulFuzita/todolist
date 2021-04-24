@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/css/todo_style.css">
     <link rel="stylesheet" href="/assets/css/alert_boostrap.css">
     <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/darkmode.css">
 </head>
 
 <body>
@@ -23,6 +24,7 @@
         const {user} = session
         const isChecked = auth.enable ? 'checked': ''
         const token = auth.token
+
     %>
 
     <div id="alert-wrapper"></div>
@@ -40,7 +42,7 @@
                         <div class="text-center form-image">
                             <label>
                                 <i class="fa fa-camera d-flex d-xl-flex justify-content-end align-items-end justify-content-xl-end align-items-xl-end"></i>
-                                <img id="imageProfile" src="<%= image.filename %>">
+                                <img class="inverted-darkmode" id="imageProfile" src="<%= image.filename %>">
                                 <input class="form-control-file" type="file" id="uploadImage" accept="image/*" name="image">
                             </label>
                             <div class="dark-mask"></div>
@@ -146,6 +148,8 @@
     <script src="assets/js/ejs_bootstrap_alert.js"></script>
     <script src="assets/js/settings.js"></script>
     <script src="assets/js/form_group.js"></script>
+    <script src="/assets/js/dropdown_stopper.js"></script>
+    <script src="/assets/js/darkmode.js"></script>
     <script>
         if('<%-errors%>') yieldAlert(JSON.parse('<%-errors%>'))
     </script>

@@ -21,6 +21,7 @@ To-Do List supports REST API to integrate with other platforms.<br>
 - Form validation in both sides, client and server
 - Form inputs are purified in both sides, client and server
 - Form filling feedback
+- Supports Dark Theme
 - Prevent CSRF attack
 - Supprts MongoDB local or external
 - Supports REST API

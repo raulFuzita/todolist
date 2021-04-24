@@ -33,6 +33,18 @@ class SettingsDAO {
         )
     }
 
+    async updateProperty(settings) {
+        const {id, enable} = settings
+        return await User.updateOne(
+            {"_id": id, "settings.settings": "property"},
+            {
+                "$set": {
+                    "settings.$.darktheme": enable,
+                }
+            }
+        )
+    }
+
 }
 
 module.exports = SettingsDAO

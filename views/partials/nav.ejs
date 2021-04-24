@@ -6,12 +6,16 @@
     let showProfile = (session.user) ? '' : 'd-none'
     let userName = (session.user) ? session.user.name : 'Error'
     let profileImg = (session.user) ? session.user.profile : defaultImg
+    let {darktheme} = (session.user) ? session.user.property : {darktheme: false}
 
     if (!profileImg) profileImg = defaultImg
+    
+    let darkthemeSwitch = darktheme ? 'checked' : ''
 %>
 
-<header class="shadow-sm">
-    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+<div id="darktheme" data-darktheme="<%=darktheme%>"></div>
+<header style="margin-bottom: 12vh;">
+    <nav class="navbar navbar-light navbar-expand-md fixed-top shadow-sm navigation-clean-button">
         <div class="container"><a class="navbar-brand" href="./index">TODOList<i class="fa fa-book" style="margin-left: 5px;"></i></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav mr-auto">
@@ -23,10 +27,16 @@
                     <a class="btn btn-light action-button" role="button" href="./signup">Sign Up</a>
                 </span>
                 <div class="dropdown <%= showProfile %> ml-auto" id="username">
-                    <a class="dropdown-toggle simple-link" data-toggle="dropdown" aria-expanded="false" id="username" href="#"><img id="topImgProfile" class="img-mini" src="<%=profileImg%>"><%= userName %></a>
+                    <a class="dropdown-toggle simple-link" data-toggle="dropdown" aria-expanded="false" id="username" href="#"><img id="topImgProfile" class="img-mini inverted-darkmode" src="<%=profileImg%>"><%= userName %></a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" id="todolist" href="task">To-do List</a>
                         <a class="dropdown-item" id="settings" href="settings">Settings</a>
+                        <a class="dropdown-item" href="#">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="darkthemeBtn" <%=darkthemeSwitch%>>
+                                <label class="custom-control-label" for="darkthemeBtn" >Dark Theme</label>
+                            </div>
+                        </a>
                         <form action="logout" method="post">
                             <input class="form-control" type="hidden" name="_csrf" value="<%= csrfToken %>" />
                             <button class="dropdown-item" type="submit">Log Out</button>
