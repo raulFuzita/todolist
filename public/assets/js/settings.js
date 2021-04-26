@@ -21,8 +21,8 @@ $('#tokenToggle').click(() => {
     .then(data => {
         $('#tokenField').val(data.token)
         const alert = isEnableToken 
-        ? {auth: {status: 'alert-warning', message: 'API token is enable'}} 
-        : {auth: {status: 'alert-success', message: 'API token is disable'}}
+        ? {auth: {status: 'alert-warning', message: 'API token is enabled'}} 
+        : {auth: {status: 'alert-success', message: 'API token is disabled'}}
         yieldAlert(alert)
     })
 })

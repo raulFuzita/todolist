@@ -51,8 +51,6 @@ app.use(session({
 const visitor = {access: 'visitor'}
 const auth = {access: 'auth'}
 
-
-
 app.use('/index', require('./routes/indexRoute'))
 app.use('/login', policy(visitor), require('./routes/user/loginRoute'))
 app.use('/signup', policy(visitor), require('./routes/user/signupRoute'))
