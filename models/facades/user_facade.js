@@ -24,7 +24,7 @@ exports.login = async (userForm) => {
                 })
             }
         }
-        reject(createLazyError('alert-danger', 'User does not exist'))
+        reject(createLazyError('alert-danger', 'User does not exist or password is wrong'))
     })
 }
 
