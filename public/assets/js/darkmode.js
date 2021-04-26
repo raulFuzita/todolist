@@ -31,7 +31,6 @@ $('#darkthemeBtn').click(() => {
     const _csrf = $('#csrf').val()
     putData('profile', { darktheme:{enable: isEnableToken}, _csrf})
     .then(data => {
-        console.log(data)
          if (typeof data === 'boolean') {
              console.log('Variable is ' + data)
              checkTheme(data)

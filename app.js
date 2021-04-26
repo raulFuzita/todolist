@@ -6,7 +6,7 @@ dotenv = require('dotenv'),
 cookieParser = require('cookie-parser')
 csrf = require('csurf'),
 db = require('./database/mongoDB/connector')
-const {policy} = require('./models/util/loggin_checker')
+const {policy} = require('./middleware/loggin_checker')
 
 dotenv.config()
 const app = express()

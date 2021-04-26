@@ -23,6 +23,7 @@
 <body>
     
     <%- include("./partials/nav.ejs") %>
+    <input class="form-control" id="csrf" type="hidden" name="_csrf" value="<%= csrfToken %>" />
     <button class="btn btn-primary" id="back-to-top" type="button"><i class="fa fa-arrow-up"></i></button>
     <div class="container">
         <div class="mx-auto" style="margin-top: 30px;max-width: 900px;min-height: 250px;">

@@ -18,3 +18,22 @@ body {
 .navbar-brand {
     height: 50px;
 }
+
+
+@media (min-width: 300px) {
+    .login-signup {
+        float: right;
+    }
+    .dropdown {
+        float: right;
+    }
+    .dropdown-menu {
+        transform: translateX(-40%);
+    }
+}
+
+@media (min-width: 992px) {
+    .dropdown-menu {
+        transform: translateX(0);
+    }
+}
