@@ -38,7 +38,7 @@ exports.reset_pwd_post = (req, res) => {
     facade.resetPassword(req.body)
     .then(error =>  {
         req.session.error = error
-        render(req, res)
+        res.redirect('/login')
     })
     .catch(error => {
         req.session.error = error

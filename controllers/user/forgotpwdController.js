@@ -5,7 +5,7 @@ const {createLazyError} = require('../../models/util/errors_util')
 exports.forgot_pwd_post = (req, res) => {
 
     const {email} = req.body
-    const resetAtPage = `${req.headers.host}/resetpassword`
+    const resetAtPage = `${req.headers.origin}/resetpassword`
 
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
