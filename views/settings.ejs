@@ -1,8 +1,13 @@
 <!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>todolist</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -18,6 +23,9 @@
 </head>
 
 <body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
     
     <%- include("./partials/nav.ejs") %>
     <% 
@@ -91,8 +99,8 @@
                     <div class="col col-md-9 col-12 mb-2">
                         <div class="group-form-icon">
                             <input class="form-control" type="password" name="password" data-toggle="tooltip" data-bss-tooltip="" id="passwordInput" placeholder="Password" maxlength="160" title="Size up to 160 characters" required="" value="">
-                            <span class="d-inline-block" id="passwordIcon">
-                                <i class="fa fa-unlock-alt" title="Click to copy"></i>
+                            <span class="d-inline-block">
+                                <i id="passwordIcon" class="fa fa-eye-slash" title="Show or hide password"></i>
                             </span>
                         </div>
                     </div>
@@ -104,8 +112,8 @@
                     <div class="col col-md-9 col-12 mb-2">
                         <div class="group-form-icon">
                             <input class="form-control" type="password" name="confirmPassword" data-toggle="tooltip" data-bss-tooltip="" id="confirmPasswordInput" placeholder="Confirm Password" maxlength="160" title="Size up to 160 characters" required="" value="">
-                            <span class="d-inline-block" id="ConfirmPasswordIcon">
-                                <i class="fa fa-unlock-alt" title="Click to copy"></i>
+                            <span class="d-inline-block">
+                                <i id="ConfirmPasswordIcon" class="fa fa-eye-slash" title="Show or hide password"></i>
                             </span>
                         </div>
                         
@@ -114,7 +122,7 @@
                 <input class="form-control" id="csrf" type="hidden" name="_csrf" value="<%= csrfToken %>" />
                 <div class="form-row" style="margin-top: 20px;">
                     <div class="col text-right">
-                        <button class="btn btn-secondary btn-sm" type="submit">Save</button>
+                        <button class="btn btn-secondary btn" type="submit">Save</button>
                     </div>
                 </div>
             </form>
@@ -146,6 +154,7 @@
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/ejs_bootstrap_alert.js"></script>
+    <script src="assets/js/toolbox.js"></script>
     <script src="assets/js/settings.js"></script>
     <script src="assets/js/form_group.js"></script>
     <script src="/assets/js/dropdown_stopper.js"></script>

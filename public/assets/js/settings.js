@@ -26,3 +26,12 @@ $('#tokenToggle').click(() => {
         yieldAlert(alert)
     })
 })
+
+$('#passwordIcon').click(() => {
+    toggleShowPassword('#passwordIcon', '#passwordInput')
+})
+
+$('#ConfirmPasswordIcon').click(() => {
+    toggleShowPassword('#ConfirmPasswordIcon', '#confirmPasswordInput')
+})
+

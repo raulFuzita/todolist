@@ -110,20 +110,6 @@ ul.todo-list {
   padding: 2px;
 }
 
-.group-form-icon input {
-  display: inline;
-  width: 100%;
-  border: none;
-  outline: none;
-  padding-left: 5px;
-  padding-right: 25px;
-  margin-right: -25px;
-}
-
-.group-form-icon span {
-  cursor: pointer;
-}
-
 .form-image {
   position: relative;
   padding: 3px;
