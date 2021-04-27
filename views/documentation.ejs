@@ -32,7 +32,7 @@
     
     <%- include("./partials/nav.ejs") %>
     <input class="form-control" id="csrf" type="hidden" name="_csrf" value="<%= csrfToken %>" />
-    <button class="btn btn-primary" id="back-to-top" type="button"><i class="fa fa-arrow-up"></i></button>
+    <a class="btn btn-primary" id="back-to-top" type="button"><i class="fa fa-arrow-up"></i></a>
     <div class="container">
         <div class="mx-auto" style="margin-top: 30px;max-width: 900px;min-height: 250px;">
             <h1>Documentation</h1>
@@ -45,7 +45,7 @@
                     <li><a href="#optionMenu">Option Menu</a></li>
                     <li><a href="#changePassword">Change Password And Adding a Picture</a></li>
                     <li><a href="#darktheme">Change to Dark Theme</a></li>
-                    <li><a href="#resetPassword">How to reset my password if I forger?<br></a></li>
+                    <li><a href="#resetPassword">How to reset my password if I forger it?<br></a></li>
                     <li><a href="#activateToken">Activate Token for API Access</a></li>
                     <li><a href="#useAPI">Using Token with API</a>
                         <ul>
@@ -110,7 +110,7 @@
             </section>
             <hr>
             <section class="doc-section">
-                <h3 id="resetPassword">How to reset my password if I forger?</h3>
+                <h3 id="resetPassword">How to reset my password if I forget it?</h3>
                 <p>If you don't remember your password, don't worry we have an email system to send you a link to reset your password with safety and security. We have taken care of everything to make your life a lot easier.<br>To request a password reset you don't need to send an email or phone you can do it automatically. Go to the login page and click on the option called <strong>Forgot your password</strong>. A window with a for should popup.<br></p>
                 <div class="image-wrapper"><img class="shadow inverted-darkmode" src="assets/img/ducumentation/img_9.3.png"></div>
                 <p>Make sure to enter a valid password. After requesting a password reset you'll get a confirmation in this popup window.<br>You might have to wait a couple of minutes to get the email. If you don't see any email check or the spam box.<br>If you don't have a valid email you'll never receive it. If you don't have a registered email or misspell it you'll get an alert message.<br>If you got an email to reset your password you must use it within <strong>30 minutes</strong>&nbsp;or the link will have expired. If you use the link and reset your password but you make a mistake and don't know the new password you can't reuse the link. You have to make a new request.</p>

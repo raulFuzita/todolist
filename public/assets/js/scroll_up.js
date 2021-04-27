@@ -1,7 +1,7 @@
 $(document).ready(() => {
     $(window).scroll(() => {
         if ($(this).scrollTop() > 20)
-            $("#back-to-top").css("display", "block")
+            $("#back-to-top").css("display", "flex")
         else 
             $("#back-to-top").css("display", "none")
     })

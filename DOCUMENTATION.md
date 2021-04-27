@@ -9,7 +9,7 @@
 - <a href="#optionMenu">Option Menu</a>
 - <a href="#changePassword">Change Password And Adding a Picture</a>
 - <a href="#darktheme">Change to Dark Theme</a>
-- <a href="#resetPassword">How to reset my password if I forger?</a>
+- <a href="#resetPassword">How to reset my password if I forger it?</a>
 - <a href="#activateToken">Activate Token for API Access</a>
 - <a href="#useAPI">Using Token with API</a>
     - <a href="#getMethod">Get Method</a>
@@ -191,7 +191,7 @@ If you want to change back to Light Theme you have o access your profile menu ag
 
 <br>
 
-<h2 id="resetPassword">How to reset my password if I forger?</h2>
+<h2 id="resetPassword">How to reset my password if I forget it?</h2>
 
 <br>
 
