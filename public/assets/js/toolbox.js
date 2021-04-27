@@ -9,21 +9,26 @@ const toggleShowPassword = (iconId, inpuId) => {
     }
 }
 
-const comparePassword = (confirmInput, passwordInput) => {
-    $(confirmInput).keyup(() => {
+const textColor = (inputs, color) => {
+    inputs.forEach(e => $(e).css('color', color))
+}
 
-        if ($(confirmInput).val() && $(passwordInput).val()) {
-            if ($(confirmInput).val() == $(passwordInput).val()){
-                $(confirmInput).css('color', 'green')
-                $(passwordInput).css('color', 'green')
-            } else {
-                $(confirmInput).css('color', 'red')
-                $(passwordInput).css('color', 'red')
-            }
-        } else {
-            $(confirmInput).css('color', 'initial')
-            $(passwordInput).css('color', 'initial')
-        }
+const checkchanges = (inputTarget, inputCompare) => {
+    let inputs = [inputTarget, inputCompare]
+    if ($(inputTarget).val() && $(inputCompare).val()) {
+        let color = $(inputTarget).val() == $(inputCompare).val() ? 'green' : 'red'
+        textColor(inputs, color)
+    } else {
+        textColor(inputs, 'initial')
+    }
+}
+
+const comparePassword = (confirmInput, passwordInput) => {
+    $(passwordInput).keyup(() => {
+        checkchanges(passwordInput, confirmInput)
+    })
+    $(confirmInput).keyup(() => {
+        checkchanges(confirmInput, passwordInput)
     })
 }
 
