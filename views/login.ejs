@@ -37,9 +37,18 @@
         <form method="post">
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
-            <div class="form-group">
-                <input class="form-control" type="email" name="email" placeholder="Email" value="<%= email %>" required=""></div>
-            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password" required="" minlength="8" maxlength="180" title="Size up to 160 characters, and minimum of 8"></div>
+            <div class="form-group group-form-icon">
+                <input class="form-control" type="email" name="email" placeholder="Email" value="<%= email %>" required="">
+                <span class="d-inline-block">
+                    <i class="fa fa-close clear-input" title="Clear field"></i>
+                </span>
+            </div>
+            <div class="form-group group-form-icon">
+                <input id="passwordInput" class="form-control" type="password" name="password" placeholder="Password" required="" minlength="8" maxlength="180" title="Size up to 160 characters, and minimum of 8">
+                <span class="d-inline-block">
+                    <i id="passwordIcon" class="fa fa-eye-slash" title="Show or hide password"></i>
+                </span>
+            </div>
             <input class="form-control" type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div>
             <a class="forgot forgot-format" style="font-size: 0.9em;" href="#" data-toggle="modal" data-target="#popup">Forgot your password?</a>
@@ -54,6 +63,10 @@
     <script src="/assets/js/darkmode.js"></script>
     <script>
         if('<%-errors%>') yieldAlert(JSON.parse('<%-errors%>'))
+
+        $('#passwordIcon').click(() => {
+            toggleShowPassword('#passwordIcon', '#passwordInput')
+        })
     </script>
 </body>
 

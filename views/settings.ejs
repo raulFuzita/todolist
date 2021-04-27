@@ -161,6 +161,8 @@
     <script src="/assets/js/darkmode.js"></script>
     <script>
         if('<%-errors%>') yieldAlert(JSON.parse('<%-errors%>'))
+
+        comparePassword('#confirmPasswordInput', '#passwordInput')
     </script>
 </body>
 

@@ -33,6 +33,13 @@ body {
     cursor: pointer;
 }
 
+input.form-control:hover + span i {
+    opacity: 0.5; 
+}
+
+.group-form-icon span i { opacity: 0; }
+.group-form-icon span i:hover { opacity: 1; }
+
 @media (min-width: 300px) {
     .login-signup {
         float: right;
